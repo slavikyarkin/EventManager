@@ -2,6 +2,21 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+// import { createStore, applyMiddleware } from 'redux'
+// import createSagaMiddleware from 'redux-saga'
+
+
+// const sagaMiddleware = createSagaMiddleware()
+
+// const store = createStore(
+
+//   applyMiddleware(sagaMiddleware)
+// )
+
+// sagaMiddleware.run()
+
+
+
 function App() {
   return (
     <div className="App">
