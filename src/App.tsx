@@ -2,21 +2,21 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-// import { createStore, applyMiddleware } from 'redux'
-// import createSagaMiddleware from 'redux-saga'
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+
+import { companySaga } from './company/companySaga';
+import { companyReducer } from "./company/companyReducer";
 
 
-// const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware()
 
-// const store = createStore(
+const store = createStore(
+  companyReducer,
+  applyMiddleware(sagaMiddleware)
+)
 
-//   applyMiddleware(sagaMiddleware)
-// )
-
-// sagaMiddleware.run()
-
-
-
+sagaMiddleware.run(companySaga);
 
 function App() {
   return (
