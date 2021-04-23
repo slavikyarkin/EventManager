@@ -6,13 +6,13 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import { companySaga } from './company/companySaga';
-import { companyReducer } from "./company/companyReducer";
+import { rootReducer } from './rootReducer';
 
 
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
-  companyReducer,
+  rootReducer,
   applyMiddleware(sagaMiddleware)
 )
 

@@ -1,7 +1,7 @@
 import { CompanyModel } from './companyModel';
 import { CompanyData } from './companyData';
 
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, take, takeEvery, takeLatest } from 'redux-saga/effects'
 import { action, ActionType, getType } from 'typesafe-actions'
 import * as Api from "./companyAPI";
 import * as actions from "./companyActions";
@@ -9,7 +9,7 @@ import * as mapper from "./companyMapper";
 
 export function* companySaga() {
     yield takeLatest(getType(actions.loadCompany), loadCompany);
-    yield takeLatest(getType(actions.createCompany), createCompany);
+    yield takeEvery(getType(actions.createCompany), createCompany);
 }
 
 function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
