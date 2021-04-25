@@ -1,4 +1,4 @@
-import { CompanyModel } from './companyModel';
+import { CompanyModel } from './CompanyModel';
 
 export interface CompanyState {
     company?: CompanyModel;

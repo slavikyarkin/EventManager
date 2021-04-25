@@ -1,6 +1,6 @@
-import * as companyActions from "./companyActions";
+import * as companyActions from "./CompanyActions";
 import { ActionType, getType } from "typesafe-actions";
-import { CompanyState } from "./companyState";
+import { CompanyState } from "./CompanyState";
 
 export type CompanyAction = ActionType<typeof companyActions>;
 

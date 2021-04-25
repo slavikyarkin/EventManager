@@ -1,5 +1,7 @@
 import { AppSettings } from "../AppSettings";
-import { EventData } from "./eventData";
+import { EventData } from "./EventData";
+
+
 
 declare const appSettings : AppSettings;
 

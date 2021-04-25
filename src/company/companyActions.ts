@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { CompanyModel } from "./companyModel";
+import { CompanyModel } from "./CompanyModel";
 
 export const loadCompany = createAction('company/LOAD_COMPANY')<number>();
 export const loadCompanySuccess= createAction('company/LOAD_COMPANY_SUCCESS')<CompanyModel>();

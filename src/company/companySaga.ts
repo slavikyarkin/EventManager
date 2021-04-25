@@ -1,11 +1,11 @@
-import { CompanyModel } from './companyModel';
-import { CompanyData } from './companyData';
+import { CompanyModel } from './CompanyModel';
+import { CompanyData } from './CompanyData';
 
 import { call, put, take, takeEvery, takeLatest } from 'redux-saga/effects'
 import { action, ActionType, getType } from 'typesafe-actions'
-import * as Api from "./companyAPI";
-import * as actions from "./companyActions";
-import * as mapper from "./companyMapper";
+import * as Api from "./CompanyAPI";
+import * as actions from "./CompanyActions";
+import * as mapper from "./CompanyMapper";
 
 export function* companySaga() {
     yield takeLatest(getType(actions.loadCompany), loadCompany);

@@ -1,4 +1,4 @@
-import { CompanyData } from './companyData';
+import { CompanyData } from './CompanyData';
 import { AppSettings } from "../AppSettings";
 
 
