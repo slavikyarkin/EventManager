@@ -1,29 +1,50 @@
-import { loadCompany } from './CompanyActions'
 
-let LoadCompany = ({ }) => {
-  let input:String
+import React, { useEffect } from "react";
+import { bindActionCreators, Dispatch } from "redux";
+import { CompanyModel } from "./CompanyModel";
+import { CompanyState } from "./CompanyState";
+import { connect } from "react-redux";
+import { companySelector } from "./CompanySelector";
+import * as companyActions from "./CompanyActions";
 
-  return (
-    <div>
-      {/* <form onSubmit={e => {
-        e.preventDefault()
-        if (!input.value.trim()) {
-          return
-        }
-        dispatch(loadCompany(input.value))
-        input.value = ''
-      }}>
-        <input ref={node => {
-          input = node
-        }} />
-        <button type="submit">
-          Get Company
-        </button>
-      </form> */}
-    </div>
-  )
+
+interface OwnProps {
+  companyId: number;
 }
 
-// LoadCompany = connect()(LoadCompany)
+interface StateProps {
+  company?: CompanyModel;
+}
 
-export default LoadCompany;
+interface DispatchProps {
+  loadCompany: (id: number) => void;
+}
+
+interface Props extends OwnProps, StateProps, DispatchProps {
+}
+
+const CompanyContainer: React.FC<Props> = (props: Props) => {
+  useEffect(() => {
+    props.loadCompany(props.companyId);
+  }, []);
+
+  return (
+  <>
+    {props.company ? props.company?.name : "No company found"}
+  </>);
+}
+
+const mapStateToProps = (state: CompanyState, ownProps: OwnProps) => ({
+  company: companySelector(state)
+});
+
+
+const mapDispatchToProps = (dispatch: Dispatch,) => {
+  return bindActionCreators({
+    loadCompany: companyActions.loadCompany
+  }, dispatch);
+};
+
+const Company = connect(mapStateToProps, mapDispatchToProps)(CompanyContainer);
+
+export default Company;
