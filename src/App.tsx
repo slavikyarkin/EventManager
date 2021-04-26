@@ -1,5 +1,5 @@
-import React from 'react';
-import logo from './logo.svg';
+// import React from 'react';
+// import logo from './logo.svg';
 import './App.css';
 
 
@@ -13,7 +13,9 @@ import createSagaMiddleware from 'redux-saga';
 
 import { companySaga } from './Company/CompanySaga';
 import { rootReducer } from './rootReducer';
-// import { getCompanyButton } from './Company/CompanyComponents'
+
+import { GetCompanyButton } from './Company/CompanyComponents'
+import { GetCompanyTextField } from './Company/CompanyComponents'
 
 
 const sagaMiddleware = createSagaMiddleware()
@@ -25,29 +27,6 @@ const store = createStore(
 
 sagaMiddleware.run(companySaga);
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         {/* <getCompanyButton > */}
-//       </header>
-//     </div>
-//   );
-// }
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Event Manager
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 function App() {
   return (
     <Container maxWidth="sm">
@@ -55,9 +34,13 @@ function App() {
         <Typography variant="h4" component="h1" gutterBottom>
           Event Managaer
         </Typography>
+        <form>
+          <GetCompanyTextField />
+          <GetCompanyButton />
+        </form>
+        
 
-
-        <Copyright />
+      
       </Box>
     </Container>
   );
