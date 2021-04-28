@@ -14,12 +14,16 @@ import createSagaMiddleware from 'redux-saga';
 import { companySaga } from './Company/CompanySaga';
 import { rootReducer } from './rootReducer';
 
+import { Router, Route, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
+
 import { GetCompanyButton } from './Company/CompanyComponents'
 import { GetCompanyTextField } from './Company/CompanyComponents'
 import React from 'react';
 import Company from './Company/CompanyContainer';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from "redux-devtools-extension";
+import CompanyContainer from './Company/CompanyContainer';
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -30,24 +34,37 @@ const store = createStore(
 
 sagaMiddleware.run(companySaga);
 
+const history = syncHistoryWithStore(browserHistory, store)
+
 function App() {
   return (
     <Provider store={store}>
-      <Container maxWidth="sm">
-        <Company companyId={1} />
-        <Box my={4}>
-          <Typography variant="h4" component="h1" gutterBottom>
-            Event Managaer
-        </Typography>
-          <form>
-            <GetCompanyTextField />
-            <GetCompanyButton />
-          </form>
+      <Router history={history}>
+        <Route path="/" component={CompanyContainer}>
 
 
 
-        </Box>
-      </Container>
+
+        </Route> 
+        
+        {/* <Container maxWidth="sm">
+          <Company companyId={1} />
+          <Box my={4}>
+            <Typography variant="h4" component="h1" gutterBottom>
+              Event Managaer
+          </Typography>
+            <form>
+              <GetCompanyTextField />
+              <GetCompanyButton />
+            </form>
+
+
+
+          </Box>
+        </Container> */}
+      </Router>
     </Provider>
   );
 }
+
+export default App;
