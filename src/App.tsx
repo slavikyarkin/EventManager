@@ -14,9 +14,12 @@ import createSagaMiddleware from 'redux-saga';
 import { companySaga } from './Company/CompanySaga';
 import { rootReducer } from './rootReducer';
 
-import { Router, Route, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 import { GetCompanyButton } from './Company/CompanyComponents'
 import { GetCompanyTextField } from './Company/CompanyComponents'
 import React from 'react';
@@ -24,6 +27,9 @@ import Company from './Company/CompanyContainer';
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from "redux-devtools-extension";
 import CompanyContainer from './Company/CompanyContainer';
+import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComponent';
+import { LeftSidebarComponent } from './Shared/LeftSidebar/LeftSidebarComponent';
+
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -34,19 +40,21 @@ const store = createStore(
 
 sagaMiddleware.run(companySaga);
 
-const history = syncHistoryWithStore(browserHistory, store)
-
 function App() {
   return (
     <Provider store={store}>
-      <Router history={history}>
-        <Route path="/" component={CompanyContainer}>
-
-
-
-
-        </Route> 
-        
+      <TopNavigationComponent />
+      <LeftSidebarComponent />
+      <Router>
+        <Switch>
+          <Route path="/events">
+            <div>EVENTS</div>
+          </Route>
+          <Route path="/company/:companyId" component={CompanyContainer} />
+          <Route path="/">
+            <div>HOME</div>
+          </Route>
+        </Switch>
         {/* <Container maxWidth="sm">
           <Company companyId={1} />
           <Box my={4}>

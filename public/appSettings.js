@@ -1,3 +1,3 @@
 var appSettings = {}
 
-appSettings.baseApiUrl = 'https://localhost:44332'
+appSettings.baseApiUrl = 'http://localhost:3000/api'

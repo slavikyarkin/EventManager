@@ -6,10 +6,12 @@ import { CompanyState } from "./CompanyState";
 import { connect } from "react-redux";
 import { companySelector } from "./CompanySelector";
 import * as companyActions from "./CompanyActions";
+import { ComponentState } from "./ComponentState";
+import { useParams } from "react-router-dom";
 
 
 interface OwnProps {
-  companyId: number;
+  
 }
 
 interface StateProps {
@@ -24,8 +26,11 @@ interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
 const CompanyContainer: React.FC<Props> = (props: Props) => {
+  let { companyId } = useParams();
+  
   useEffect(() => {
-    props.loadCompany(props.companyId);
+    
+    props.loadCompany(companyId);
   }, []);
 
   return (
@@ -34,7 +39,7 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
   </>);
 }
 
-const mapStateToProps = (state: CompanyState, ownProps: OwnProps) => ({
+const mapStateToProps = (state: ComponentState, ownProps: OwnProps) => ({
   company: companySelector(state)
 });
 
