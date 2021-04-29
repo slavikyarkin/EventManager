@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    grow: {
+      flexGrow: 1,
+    },
   }),
 );
 
@@ -35,9 +38,8 @@ export function TopNavigationComponent() {
         <IconButton edge="start" className={classes.HomeButton} color="inherit" aria-label="menu" >
           Event manager
         </IconButton>
-        {/* <Typography variant="h6" noWrap>
-              
-        </Typography> */}
+        <Typography variant="h6" color="inherit" className={classes.grow}>
+        </Typography>
            <Button color="inherit"> Login </Button>
        </Toolbar>
     </AppBar> 

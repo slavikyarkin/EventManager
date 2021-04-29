@@ -28,7 +28,8 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from "redux-devtools-extension";
 import CompanyContainer from './Company/CompanyContainer';
 import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComponent';
-import ClippedDrawer, { LeftSidebarComponent } from './Shared/LeftSidebar/LeftSidebarComponent';
+import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
+
 
 
 const sagaMiddleware = createSagaMiddleware()
@@ -44,8 +45,8 @@ function App() {
   return (
     <Provider store={store}>
       <TopNavigationComponent />
-      {/* <LeftSidebarComponent /> */}
-      <ClippedDrawer />
+      <LeftSidebarComponent />
+      {/* <ClippedDrawer /> */}
 
 
         
