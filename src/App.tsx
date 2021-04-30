@@ -29,7 +29,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import CompanyContainer from './Company/CompanyContainer';
 import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComponent';
 import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
-
+import "./app.scss"
 
 
 const sagaMiddleware = createSagaMiddleware()
@@ -44,21 +44,28 @@ sagaMiddleware.run(companySaga);
 function App() {
   return (
     <Provider store={store}>
-      <TopNavigationComponent />
-      <LeftSidebarComponent />
-      {/* <ClippedDrawer /> */}
 
-      <Router>
-        <Switch>
-          <Route path="/events">
-            <div>EVENTS</div>
-          </Route>
-          <Route path="/company/:companyId" component={CompanyContainer} />
-          <Route path="/">
-            <div>HOME</div>
-          </Route>
-        </Switch>
-      </Router>
+      {/* <ClippedDrawer /> */}
+      <div className={"main-container"}>
+
+        <Router>
+          <TopNavigationComponent />
+          <LeftSidebarComponent />
+          <Switch>
+            <Route path="/events">
+              <div>EVENTS</div>
+            </Route>
+            <Route path="/company/new">
+              <div>Create new company</div>
+            </Route>
+            <Route path="/company/:companyId" component={CompanyContainer} />
+            <Route path="/">
+              <div>HOME</div>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+
     </Provider>
   );
 }

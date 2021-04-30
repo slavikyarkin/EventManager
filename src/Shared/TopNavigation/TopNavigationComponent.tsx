@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, IconButton, Typography, Button, makeStyles, createStyles, Theme, fade } from "@material-ui/core";
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -31,11 +32,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export function TopNavigationComponent() {
   const classes = useStyles();
-
+  const history = useHistory();
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
-        <IconButton edge="start" className={classes.HomeButton} color="inherit" aria-label="menu" >
+        <IconButton edge="start" className={classes.HomeButton} color="inherit" aria-label="menu" onClick={()=>history.push('/')} >
           Event manager
         </IconButton>
         <Typography variant="h6" color="inherit" className={classes.grow}>

@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 
 
 interface OwnProps {
-  
+ 
 }
 
 interface StateProps {
@@ -29,7 +29,6 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
   let { companyId } = useParams();
   
   useEffect(() => {
-    
     props.loadCompany(companyId);
   }, []);
 
