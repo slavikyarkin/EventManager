@@ -48,9 +48,6 @@ function App() {
       <LeftSidebarComponent />
       {/* <ClippedDrawer /> */}
 
-
-        
-      
       <Router>
         <Switch>
           <Route path="/events">
@@ -61,21 +58,6 @@ function App() {
             <div>HOME</div>
           </Route>
         </Switch>
-        {/* <Container maxWidth="sm">
-          <Company companyId={1} />
-          <Box my={4}>
-            <Typography variant="h4" component="h1" gutterBottom>
-              Event Managaer
-          </Typography>
-            <form>
-              <GetCompanyTextField />
-              <GetCompanyButton />
-            </form>
-
-
-
-          </Box>
-        </Container> */}
       </Router>
     </Provider>
   );
