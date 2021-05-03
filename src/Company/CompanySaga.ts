@@ -22,8 +22,6 @@ function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
     }
 }
 
-
-
 function* createCompany(action: ActionType<typeof actions.createCompany>) {
     try {
         const company: CompanyData = yield call(Api.createCompany, action.payload)
