@@ -1,8 +1,7 @@
 import { CompanyState } from './Company/CompanyState';
-import { RouterState } from 'react-router-redux'
+import { EventState } from './Event/EventState';
 
 export interface ApplicationState {
-    company: CompanyState,
-    // events: 
-    routing: RouterState
-};
+    company: CompanyState
+    event: EventState
+}

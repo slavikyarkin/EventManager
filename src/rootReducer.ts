@@ -1,10 +1,9 @@
 import { combineReducers } from "redux";
 import { ApplicationState } from "./applicationState";
 import { companyReducer } from "./Company/CompanyReducer";
-
-import { routerReducer } from 'react-router-redux'
+import { eventReducer } from "./Event/EventReducer";
 
 export const rootReducer = combineReducers<ApplicationState>({
     company: companyReducer,
-    routing: routerReducer
+    event: eventReducer
 })

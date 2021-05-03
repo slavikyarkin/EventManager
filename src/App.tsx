@@ -1,35 +1,24 @@
-// import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
-
-
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
+import React from 'react';
+import "./app.scss"
 
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-
-import { companySaga } from './Company/CompanySaga';
-import { rootReducer } from './rootReducer';
-
-import { syncHistoryWithStore } from 'react-router-redux'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
-import { GetCompanyButton } from './Company/CompanyComponents'
-import { GetCompanyTextField } from './Company/CompanyComponents'
-import React from 'react';
-import Company from './Company/CompanyContainer';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { composeWithDevTools } from "redux-devtools-extension";
+
+
+import { companySaga } from './Company/CompanySaga';
 import CompanyContainer from './Company/CompanyContainer';
+
+import { rootReducer } from './rootReducer';
+
 import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComponent';
 import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
-import "./app.scss"
+import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
+import EventContainer from './Event/EventContainer';
+
+
 
 
 const sagaMiddleware = createSagaMiddleware()
@@ -44,10 +33,7 @@ sagaMiddleware.run(companySaga);
 function App() {
   return (
     <Provider store={store}>
-
-      {/* <ClippedDrawer /> */}
       <div className={"main-container"}>
-
         <Router>
           <TopNavigationComponent />
           <LeftSidebarComponent />
@@ -55,17 +41,25 @@ function App() {
             <Route path="/events">
               <div>EVENTS</div>
             </Route>
+            <Route path="/event/new">
+              <div>Create new event</div>
+            </Route>
+            <Route path="/event/:eventId" component={EventContainer}> 
+              <div>SHOW EVENT</div>
+            </Route>
             <Route path="/company/new">
               <div>Create new company</div>
             </Route>
-            <Route path="/company/:companyId" component={CompanyContainer} />
+            <Route path="/company/:companyId" component={CompanyContainer} >
+              <MainBodyComponent />
+            </Route>
             <Route path="/">
               <div>HOME</div>
+              <MainBodyComponent />
             </Route>
           </Switch>
         </Router>
       </div>
-
     </Provider>
   );
 }
