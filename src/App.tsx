@@ -17,6 +17,7 @@ import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComp
 import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
 import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
 import EventContainer from './Event/EventContainer';
+import { CompanyCreate } from './Company/CompanyCreateContainer';
 
 
 
@@ -48,7 +49,7 @@ function App() {
               <div>SHOW EVENT</div>
             </Route>
             <Route path="/company/new">
-              <div>Create new company</div>
+              <CompanyCreate />
             </Route>
             <Route path="/company/:companyId" component={CompanyContainer} >
               <MainBodyComponent />
