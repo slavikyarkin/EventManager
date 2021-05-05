@@ -3,8 +3,8 @@ import "./app.scss"
 
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Provider } from 'react-redux';
+import { Switch, Route } from "react-router-dom";
+import { connect, Provider } from 'react-redux';
 import { composeWithDevTools } from "redux-devtools-extension";
 
 
@@ -17,25 +17,35 @@ import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComp
 import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
 import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
 import EventContainer from './Event/EventContainer';
-import { CompanyCreate } from './Company/CompanyCreateContainer';
+import CompanyCreate from './Company/CompanyCreateContainer';
+import { ApplicationState } from './applicationState';
+import { RouterModel } from './Shared/Router/RouterModel';
+import { browserHistory, Router  } from 'react-router';
 
 
+interface StateProps {
+  routerModel?: RouterModel;
+}
 
 
-const sagaMiddleware = createSagaMiddleware()
+const App: React.FunctionComponent<StateProps> = (props) => {
+  // const history = useHistory();
+  
+  // React.useEffect(() => {
+  //   if (props.routerModel && props.routerModel.redirectTo) {
+  //     if (props.routerModel.redirectTo.startsWith("/")) {
+  //       history.push(props.routerModel.redirectTo);
+  //     }
+  //     else {
+  //       window.location.href = props.routerModel.redirectTo;
+  //     }
+  //   }
+  // });
 
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware))
-)
-
-sagaMiddleware.run(companySaga);
-
-function App() {
   return (
-    <Provider store={store}>
+
       <div className={"main-container"}>
-        <Router>
+       <Router history={browserHistory} >
           <TopNavigationComponent />
           <LeftSidebarComponent />
           <Switch>
@@ -45,7 +55,7 @@ function App() {
             <Route path="/event/new">
               <div>Create new event</div>
             </Route>
-            <Route path="/event/:eventId" component={EventContainer}> 
+            <Route path="/event/:eventId" component={EventContainer}>
               <div>SHOW EVENT</div>
             </Route>
             <Route path="/company/new">
@@ -59,10 +69,16 @@ function App() {
               <MainBodyComponent />
             </Route>
           </Switch>
-        </Router>
+          </Router>
       </div>
-    </Provider>
+    
   );
 }
 
-export default App;
+const mapStateToProps = (state: ApplicationState) => {
+  return {
+    routerModel: state.router.router,
+  }
+};
+
+export default connect(mapStateToProps)(App);
