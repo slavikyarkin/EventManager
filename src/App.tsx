@@ -8,7 +8,7 @@ import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComp
 import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
 import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
 import EventContainer from './Event/EventContainer';
-import { CompanyCreate } from './Company/CompanyCreateContainer';
+import CompanyCreateContainer from './Company/CompanyCreateContainer';
 import Login from './Shared/Login/LoginComponent';
 
 function App() {
@@ -28,8 +28,7 @@ function App() {
           <Route path="/event/:eventId" component={EventContainer}>
             <div>SHOW EVENT</div>
           </Route>
-          <Route path="/company/new">
-            <CompanyCreate />
+          <Route path="/company/new" component={CompanyCreateContainer}>
             <LeftSidebarComponent />
           </Route>
           <Route path="/company/:companyId" component={CompanyContainer} >
