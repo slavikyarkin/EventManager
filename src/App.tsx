@@ -9,7 +9,7 @@ import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
 import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
 import EventContainer from './Event/EventContainer';
 import CompanyCreateContainer from './Company/CompanyCreateContainer';
-import Login from './Shared/Login/LoginComponent';
+import Login from './Shared/Login/LoginContainer';
 
 function App() {
 
