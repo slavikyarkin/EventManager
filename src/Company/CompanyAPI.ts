@@ -19,7 +19,7 @@ export const createCompany = (data: CompanyData): Promise<CompanyData> => {
         body: JSON.stringify(data)
     })
         .then(response => response.json());
-    // .then(result => 
+     
 };
 
 export const editCompany = (id: number, data: CompanyData): Promise<CompanyData> => {

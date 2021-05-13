@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 
 
 interface OwnProps {
- 
+
 }
 
 interface StateProps {
@@ -26,16 +26,18 @@ interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
 const CompanyContainer: React.FC<Props> = (props: Props) => {
-  let { companyId } = useParams();
-  
+  let { companyId } = useParams<{ companyId: string | undefined }>();
+
   useEffect(() => {
-    props.loadCompany(companyId);
+    if (companyId) {
+      props.loadCompany(Number(companyId));
+    }
   }, []);
 
   return (
-  <>
-    {props.company ? props.company?.name : "No company found"}
-  </>);
+    <>
+      {props.company ? props.company?.name : "No company found"}
+    </>);
 }
 
 const mapStateToProps = (state: ComponentState, ownProps: OwnProps) => ({

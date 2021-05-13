@@ -7,7 +7,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import './LeftSidebar.scss'
-import { browserHistory } from 'react-router';
 
 import { useHistory } from "react-router-dom";
 

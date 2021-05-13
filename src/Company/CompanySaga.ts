@@ -25,10 +25,10 @@ function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
 
 function* createCompany(action: ActionType<typeof actions.createCompany>) {
     try {
-       // const company: CompanyData = yield call(Api.createCompany, action.payload)
-        yield put(routerActions.redirect('/company/1'));
+        const company: CompanyData = yield call(Api.createCompany, action.payload)
+        yield put(routerActions.redirect('/company/' + company.id));
         // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
     } catch (e) {
-        //yield put({type: "company/LOAD_COMPANY_FAILED", message: e.message});
+        yield put({type: "company/LOAD_COMPANY_FAILED", message: e.message});
     }
 }

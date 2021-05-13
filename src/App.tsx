@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./app.scss"
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory, withRouter, RouterProps, RouteComponentProps } from "react-router-dom";
 import CompanyContainer from './Company/CompanyContainer';
 
 import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComponent';
@@ -10,12 +10,28 @@ import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
 import EventContainer from './Event/EventContainer';
 import CompanyCreateContainer from './Company/CompanyCreateContainer';
 import Login from './Shared/Login/LoginContainer';
+import { connect } from 'react-redux';
+import { ApplicationState } from './applicationState';
+import { RouterModel } from './Shared/Router/RouterModel';
 
-function App() {
+
+interface Props extends RouteComponentProps  {
+  routerModel?: RouterModel;
+}
+
+const App = (props: Props) => {
+  
+  
+  React.useEffect(() => {
+    if (props.routerModel && props.routerModel.redirectTo) {
+      props.history.push(props.routerModel.redirectTo);
+    }
+  });
+
 
   return (
     <div className={"main-container"}>
-      <Router>
+      
         <TopNavigationComponent />
         <Switch>
           <Route path="/events">
@@ -28,8 +44,9 @@ function App() {
           <Route path="/event/:eventId" component={EventContainer}>
             <div>SHOW EVENT</div>
           </Route>
-          <Route path="/company/new" component={CompanyCreateContainer}>
+          <Route path="/company/new">
             <LeftSidebarComponent />
+            <CompanyCreateContainer />
           </Route>
           <Route path="/company/:companyId" component={CompanyContainer} >
             <MainBodyComponent />
@@ -42,9 +59,18 @@ function App() {
             <div>HOME</div>
           </Route>
         </Switch>
-      </Router>
+   
     </div>
   );
 }
 
-export default App;
+
+
+const mapStateToProps = (state: ApplicationState) => {
+  return {
+    routerModel: state.router.router,
+  }
+};
+
+
+export default withRouter(connect(mapStateToProps)(App));
