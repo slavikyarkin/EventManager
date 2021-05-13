@@ -8,10 +8,31 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SearchIcon from '@material-ui/icons/Search';
 import './LeftSidebar.scss'
 
-import { useHistory } from "react-router-dom";
+import { RouteComponentProps, useHistory, withRouter } from "react-router-dom";
+import { ApplicationState } from "../../applicationState";
+import CompanyContainer from "../../Company/CompanyContainer";
+import { RouterModel } from "../Router/RouterModel";
+import * as routerActions from "../Router/routerActions";
+import * as companyActions from "../../Company/CompanyActions";
 
-export default function LeftSidebarComponent() {
-  const history = useHistory();
+import { bindActionCreators, Dispatch } from "redux";
+import { connect } from "react-redux";
+import { CompanyModel } from "../../Company/CompanyModel";
+
+interface Props extends RouteComponentProps {
+  routerModel?: RouterModel;
+  companies?: CompanyModel[];
+  redirect: (route: string) => void;
+  loadCompanies: () => void;
+}
+
+const LeftSidebarContainer = (props: Props) => {
+
+
+  React.useEffect(() => {
+    props.loadCompanies();
+  }, []);
+
   return (
     <div className={"root"}>
       <CssBaseline />
@@ -23,9 +44,9 @@ export default function LeftSidebarComponent() {
             inputProps={{ 'aria-label': 'search' }}
           />
           <List>
-            {['Company', 'Company 2', 'Conpany 3'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} onClick={() => history.push('/company/' + text)} />
+            {props.companies && props.companies.map(x => (
+              <ListItem button key={x.id}>
+                <ListItemText primary={x.name} onClick={() => props.redirect('/company/' + x.id)} />
               </ListItem>
             ))}
           </List>
@@ -33,7 +54,7 @@ export default function LeftSidebarComponent() {
           <List>
 
             <ListItem button key={'Add company'} >
-              <ListItemText primary={'Add company'} onClick={() => history.push('/company/new')} />
+              <ListItemText primary={'Add company'} onClick={() => props.redirect('/company/new')} />
             </ListItem>
 
           </List>
@@ -42,3 +63,23 @@ export default function LeftSidebarComponent() {
     </div>
   );
 }
+
+const mapStateToProps = (state: ApplicationState) => {
+  return {
+    routerModel: state.routerState.router,
+    companies: state.companyState.allCompanies
+  }
+};
+
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+  return bindActionCreators({
+    redirect: routerActions.redirect,
+    loadCompanies: companyActions.loadAll
+  }, dispatch);
+};
+
+
+const LeftSidebar = withRouter(connect(mapStateToProps, mapDispatchToProps)(LeftSidebarContainer));
+
+export default LeftSidebar;

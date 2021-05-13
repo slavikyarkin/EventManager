@@ -23,10 +23,12 @@ export const createCompany = (data: CompanyData): Promise<CompanyData> => {
 };
 
 export const editCompany = (id: number, data: CompanyData): Promise<CompanyData> => {
+    const token = sessionStorage['authToken'];
     return fetch(appSettings.baseApiUrl + `/company/${id}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
+            'Authorization': 'Bearer ' + token
         },
         body: JSON.stringify(data)
     })
@@ -42,3 +44,8 @@ export const deleteCompany = (id: number): Promise<CompanyData> => {
     )
         .then(response => response.json());
 };
+
+export const getAllCompanies = (): Promise<CompanyData[]> =>{
+    return fetch(appSettings.baseApiUrl + `/company/all`)
+        .then(response => response.json());
+}

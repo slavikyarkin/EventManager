@@ -42,7 +42,7 @@ const CompanyCreate: React.FunctionComponent<Props> = (props: Props) => {
 
 const mapStateToProps = (state: ApplicationState) => {
     return {
-        routerModel: state.router.router,
+        routerModel: state.routerState.router,
     }
 };
 

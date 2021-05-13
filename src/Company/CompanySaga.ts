@@ -11,6 +11,7 @@ import * as routerActions from "../Shared/Router/routerActions";
 export function* companySaga() {
     yield takeLatest(getType(actions.loadCompany), loadCompany);
     yield takeEvery(getType(actions.createCompany), createCompany);
+    yield takeLatest(getType(actions.loadAll), loadAll);
 }
 
 function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
@@ -29,6 +30,17 @@ function* createCompany(action: ActionType<typeof actions.createCompany>) {
         yield put(routerActions.redirect('/company/' + company.id));
         // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
     } catch (e) {
-        yield put({type: "company/LOAD_COMPANY_FAILED", message: e.message});
+        yield put({ type: "company/LOAD_COMPANY_FAILED", message: e.message });
+    }
+}
+
+function* loadAll(action: ActionType<typeof actions.loadAll>) {
+    try {
+        //const data: CompanyData[] = yield call(Api.getAllCompanies);
+
+        const model: CompanyModel[] = [{id: 1, name: 'C1'}, {id: 2, name: 'C2'}] // data.map(mapper.mapToModel);
+        yield put(actions.loadAllSuccess(model));
+    } catch (e) {
+        yield put(actions.loadCompanyFail(e));
     }
 }

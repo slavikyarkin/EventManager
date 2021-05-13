@@ -3,7 +3,7 @@ import { CompanyState } from './Company/CompanyState';
 import { EventState } from './Event/EventState';
 
 export interface ApplicationState {
-    company: CompanyState,
-    event: EventState,
-    router: RouterState
+    companyState: CompanyState,
+    eventState: EventState,
+    routerState: RouterState
 }

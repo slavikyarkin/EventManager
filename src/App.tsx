@@ -17,13 +17,14 @@ import { RouterModel } from './Shared/Router/RouterModel';
 
 interface Props extends RouteComponentProps  {
   routerModel?: RouterModel;
+  
 }
 
 const App = (props: Props) => {
   
   
   React.useEffect(() => {
-    if (props.routerModel && props.routerModel.redirectTo) {
+    if (props.routerModel && props.routerModel.redirectTo && props.location.pathname !== props.routerModel.redirectTo) {
       props.history.push(props.routerModel.redirectTo);
     }
   });
@@ -33,10 +34,11 @@ const App = (props: Props) => {
     <div className={"main-container"}>
       
         <TopNavigationComponent />
+        <LeftSidebarComponent />
         <Switch>
           <Route path="/events">
             <div>EVENTS</div>
-            <LeftSidebarComponent />
+            
           </Route>
           <Route path="/event/new">
             <div>Create new event</div>
@@ -45,12 +47,11 @@ const App = (props: Props) => {
             <div>SHOW EVENT</div>
           </Route>
           <Route path="/company/new">
-            <LeftSidebarComponent />
+            
             <CompanyCreateContainer />
           </Route>
           <Route path="/company/:companyId" component={CompanyContainer} >
             <MainBodyComponent />
-            <LeftSidebarComponent />
           </Route>
           <Route path="/login">
             <Login />
@@ -68,9 +69,11 @@ const App = (props: Props) => {
 
 const mapStateToProps = (state: ApplicationState) => {
   return {
-    routerModel: state.router.router,
+    routerModel: state.routerState.router,
   }
 };
+
+
 
 
 export default withRouter(connect(mapStateToProps)(App));
