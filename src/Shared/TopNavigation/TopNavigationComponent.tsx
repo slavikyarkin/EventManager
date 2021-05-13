@@ -41,7 +41,7 @@ export function TopNavigationComponent() {
         </IconButton>
         <Typography variant="h6" color="inherit" className={classes.grow}>
         </Typography>
-           <Button color="inherit"> Login </Button>
+           <Button color="inherit" onClick={()=>history.push('/login')}> Login </Button>
        </Toolbar>
     </AppBar> 
   )
