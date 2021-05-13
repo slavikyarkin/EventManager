@@ -6,6 +6,7 @@ import { action, ActionType, getType } from 'typesafe-actions'
 import * as Api from "./CompanyAPI";
 import * as actions from "./CompanyActions";
 import * as mapper from "./CompanyMapper";
+import * as routerActions from "../Shared/Router/routerActions";
 
 export function* companySaga() {
     yield takeLatest(getType(actions.loadCompany), loadCompany);
@@ -24,8 +25,9 @@ function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
 
 function* createCompany(action: ActionType<typeof actions.createCompany>) {
     try {
-        const company: CompanyData = yield call(Api.createCompany, action.payload)
-        //yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
+       // const company: CompanyData = yield call(Api.createCompany, action.payload)
+        yield put(routerActions.redirect('/company/1'));
+        // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
     } catch (e) {
         //yield put({type: "company/LOAD_COMPANY_FAILED", message: e.message});
     }
