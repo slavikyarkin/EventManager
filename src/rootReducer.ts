@@ -5,7 +5,7 @@ import { eventReducer } from "./Event/EventReducer";
 import { routerReducer } from "./Shared/Router/routerReducer";
 
 export const rootReducer = combineReducers<ApplicationState>({
-    company: companyReducer,
-    event: eventReducer,
-    router: routerReducer
+    companyState: companyReducer,
+    eventState: eventReducer,
+    routerState: routerReducer
 })

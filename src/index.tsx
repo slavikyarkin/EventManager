@@ -11,6 +11,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { rootReducer } from './rootReducer';
 import { companySaga } from './Company/CompanySaga';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Router, useHistory } from 'react-router-dom';
 
 
 
@@ -21,13 +22,16 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware))
 )
 
+
 sagaMiddleware.run(companySaga);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </ThemeProvider>,
   document.querySelector('#root'),

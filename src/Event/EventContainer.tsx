@@ -22,10 +22,10 @@ interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
 const EventContainer: React.FC<Props> = (props: Props) => {
-  let { eventId } = useParams();
+  let { eventId } = useParams<{ eventId: string | undefined }>();
   
   useEffect(() => {
-    props.loadEvent(eventId);
+    props.loadEvent(Number(eventId));
   }, []);
 
   return (
