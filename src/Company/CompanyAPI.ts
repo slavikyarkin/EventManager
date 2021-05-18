@@ -1,7 +1,6 @@
 import { CompanyData } from './CompanyData';
 import { AppSettings } from "../AppSettings";
 
-
 declare const appSettings: AppSettings;
 
 

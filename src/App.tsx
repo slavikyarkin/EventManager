@@ -9,20 +9,20 @@ import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
 import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
 import EventContainer from './Event/EventContainer';
 import CompanyCreateContainer from './Company/CompanyCreateContainer';
-import Login from './Shared/Login/LoginContainer';
+import { LoginContainer } from './Shared/Login/LoginContainer';
 import { connect } from 'react-redux';
 import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
 
 
-interface Props extends RouteComponentProps  {
+interface Props extends RouteComponentProps {
   routerModel?: RouterModel;
-  
+
 }
 
 const App = (props: Props) => {
-  
-  
+
+
   React.useEffect(() => {
     if (props.routerModel && props.routerModel.redirectTo && props.location.pathname !== props.routerModel.redirectTo) {
       props.history.push(props.routerModel.redirectTo);
@@ -32,35 +32,35 @@ const App = (props: Props) => {
 
   return (
     <div className={"main-container"}>
-      
-        <TopNavigationComponent />
-        <LeftSidebarComponent />
-        <Switch>
-          <Route path="/events">
-            <div>EVENTS</div>
-            
-          </Route>
-          <Route path="/event/new">
-            <div>Create new event</div>
-          </Route>
-          <Route path="/event/:eventId" component={EventContainer}>
-            <div>SHOW EVENT</div>
-          </Route>
-          <Route path="/company/new">
-            
-            <CompanyCreateContainer />
-          </Route>
-          <Route path="/company/:companyId" component={CompanyContainer} >
-            <MainBodyComponent />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/">
-            <div>HOME</div>
-          </Route>
-        </Switch>
-   
+
+      <TopNavigationComponent />
+      <LeftSidebarComponent />
+      <Switch>
+        <Route path="/events">
+          <div>EVENTS</div>
+
+        </Route>
+        <Route path="/event/new">
+          <div>Create new event</div>
+        </Route>
+        <Route path="/event/:eventId" component={EventContainer}>
+          <div>SHOW EVENT</div>
+        </Route>
+        <Route path="/company/new">
+
+          <CompanyCreateContainer />
+        </Route>
+        <Route path="/company/:companyId" component={CompanyContainer} >
+          <MainBodyComponent />
+        </Route>
+        <Route path="/login">
+          <LoginContainer />
+        </Route>
+        <Route path="/">
+          <div>HOME</div>
+        </Route>
+      </Switch>
+
     </div>
   );
 }
