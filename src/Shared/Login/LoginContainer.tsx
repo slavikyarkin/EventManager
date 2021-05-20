@@ -17,7 +17,7 @@ export const LoginContainer: React.FunctionComponent = () => {
     const [state, setState] = React.useState<LoginFormModel>(initialState);
 
     const handleSubmit = () => {
-        setState({ ...state, isLoading: true });
+            setState({ ...state, isLoading: true });
     }
 
     const setModel = (model: LoginModel) => {
@@ -26,7 +26,7 @@ export const LoginContainer: React.FunctionComponent = () => {
         setState({
             ...state,
             formData: model,
-            errors: errors
+            errors: errors,
         });
     }
 
@@ -51,9 +51,7 @@ export const LoginContainer: React.FunctionComponent = () => {
 
     const { formData, isLoading } = state;
     return (
-        <div
-            onSubmit={handleSubmit}
-        >
+        <form onSubmit={handleSubmit}>
             <h2>Login</h2>
             <TextField required
                 error={state.errors.has('Email')}
@@ -80,6 +78,6 @@ export const LoginContainer: React.FunctionComponent = () => {
             >
                 LOGIN
             </Button>
-        </div>
+        </form>
     );
 }
