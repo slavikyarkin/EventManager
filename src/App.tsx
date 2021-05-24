@@ -13,6 +13,7 @@ import { LoginContainer } from './Shared/Login/LoginContainer';
 import { connect } from 'react-redux';
 import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
+import useToken from './useToken';
 
 
 interface Props extends RouteComponentProps {
@@ -21,14 +22,17 @@ interface Props extends RouteComponentProps {
 }
 
 const App = (props: Props) => {
+  // const { token, setToken } = useToken();
 
+  // if(!token) {
+  //   return <LoginContainer setToken={setToken} />
+  // }
 
   React.useEffect(() => {
     if (props.routerModel && props.routerModel.redirectTo && props.location.pathname !== props.routerModel.redirectTo) {
       props.history.push(props.routerModel.redirectTo);
     }
   });
-
 
   return (
     <div className={"main-container"}>

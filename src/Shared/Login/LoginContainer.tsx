@@ -3,6 +3,8 @@ import Button from '@material-ui/core/Button';
 import './Login.scss';
 import { TextField } from '@material-ui/core';
 import { LoginFormModel, LoginModel } from './LoginModel';
+import PropTypes from 'prop-types';
+import { logIn } from './LoginAPI';
 
 const initialState: LoginFormModel = {
     formData: {
@@ -16,8 +18,10 @@ const initialState: LoginFormModel = {
 export const LoginContainer: React.FunctionComponent = () => {
     const [state, setState] = React.useState<LoginFormModel>(initialState);
 
-    const handleSubmit = () => {
-            setState({ ...state, isLoading: true });
+    const handleSubmit = async () => {
+        setState({ ...state, isLoading: true });
+        const token = await logIn(state.formData);
+        // setToken(token);
     }
 
     const setModel = (model: LoginModel) => {
@@ -81,3 +85,8 @@ export const LoginContainer: React.FunctionComponent = () => {
         </form>
     );
 }
+
+LoginContainer.propTypes = {
+    setToken: PropTypes.func.isRequired
+  }
+
