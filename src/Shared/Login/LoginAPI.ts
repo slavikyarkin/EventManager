@@ -4,7 +4,7 @@ import { LoginData } from "./LoginData";
 declare const appSettings: AppSettings;
 
 export const logIn = (data: LoginData): Promise<LoginData> => {
-    return fetch(appSettings.baseApiUrl + `/login`, {
+    return fetch(appSettings.baseApiUrl + `/user/authenticate`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
