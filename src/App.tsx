@@ -9,7 +9,7 @@ import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
 import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
 import EventContainer from './Event/EventContainer';
 import CompanyCreateContainer from './Company/CompanyCreateContainer';
-import { LoginContainer } from './Shared/Login/LoginContainer';
+import LoginContainer from './Shared/Login/LoginContainer';
 import { connect } from 'react-redux';
 import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
@@ -22,17 +22,17 @@ interface Props extends RouteComponentProps {
 }
 
 const App = (props: Props) => {
-  // const { token, setToken } = useToken();
-
-  // if(!token) {
-  //   return <LoginContainer setToken={setToken} />
-  // }
+  const token = useToken();
 
   React.useEffect(() => {
     if (props.routerModel && props.routerModel.redirectTo && props.location.pathname !== props.routerModel.redirectTo) {
       props.history.push(props.routerModel.redirectTo);
     }
   });
+
+  if(!token) {
+    return <LoginContainer />
+  }
 
   return (
     <div className={"main-container"}>

@@ -10,7 +10,10 @@ export function* loginSaga() {
 }
 
 function* logIn(action: ActionType<typeof actions.logIn>) {
-    try {
+    try {   
+
+
+        //sessionStorage.setItem('token', JSON.stringify(userToken));
 
     } catch (e) {
         yield put({ type: "login/LOG_IN_FAIL", message: e.message });

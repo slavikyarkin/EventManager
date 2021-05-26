@@ -5,6 +5,10 @@ import { TextField } from '@material-ui/core';
 import { LoginFormModel, LoginModel } from './LoginModel';
 import PropTypes from 'prop-types';
 import { logIn } from './LoginAPI';
+import { ApplicationState } from '../../applicationState';
+import { bindActionCreators, Dispatch } from 'redux';
+import * as actions from "./LoginActions";
+import { connect } from 'react-redux';
 
 const initialState: LoginFormModel = {
     formData: {
@@ -15,12 +19,28 @@ const initialState: LoginFormModel = {
     isLoading: false,
 }
 
-export const LoginContainer: React.FunctionComponent = () => {
+interface OwnProps {
+}
+
+interface StateProps {
+}
+
+interface DispatchProps {
+    submit: (model: LoginModel) => void;
+}
+
+interface Props extends OwnProps, StateProps, DispatchProps {
+}
+
+const LoginContainer = (props: Props) => {
     const [state, setState] = React.useState<LoginFormModel>(initialState);
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        
         setState({ ...state, isLoading: true });
-        const token = await logIn(state.formData);
+        props.submit(state.formData);
+
+        return false;
         // setToken(token);
     }
 
@@ -55,7 +75,7 @@ export const LoginContainer: React.FunctionComponent = () => {
 
     const { formData, isLoading } = state;
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={e => handleSubmit(e)}>
             <h2>Login</h2>
             <TextField required
                 error={state.errors.has('Email')}
@@ -79,6 +99,8 @@ export const LoginContainer: React.FunctionComponent = () => {
                 variant="contained"
                 type="submit"
                 disabled={isLoading}
+                
+               
             >
                 LOGIN
             </Button>
@@ -86,7 +108,17 @@ export const LoginContainer: React.FunctionComponent = () => {
     );
 }
 
-LoginContainer.propTypes = {
-    setToken: PropTypes.func.isRequired
-  }
+const mapStateToProps = (state: ApplicationState) => {
+    return {
+        routerModel: state.routerState.router,
+    }
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return bindActionCreators({
+        submit: actions.logIn
+    }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
 
