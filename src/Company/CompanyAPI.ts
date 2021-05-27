@@ -1,5 +1,6 @@
 import { CompanyData } from './CompanyData';
 import { AppSettings } from "../AppSettings";
+import * as baseApi from "../Shared/baseApi";
 
 declare const appSettings: AppSettings;
 
@@ -18,7 +19,7 @@ export const createCompany = (data: CompanyData): Promise<CompanyData> => {
         body: JSON.stringify(data)
     })
         .then(response => response.json());
-     
+
 };
 
 export const editCompany = (id: number, data: CompanyData): Promise<CompanyData> => {
@@ -44,7 +45,11 @@ export const deleteCompany = (id: number): Promise<CompanyData> => {
         .then(response => response.json());
 };
 
-export const getAllCompanies = (): Promise<CompanyData[]> =>{
-    return fetch(appSettings.baseApiUrl + `/company/all`)
-        .then(response => response.json());
+export function* getAllCompanies() {
+
+    const result: CompanyData[] = yield baseApi.get(appSettings.baseApiUrl + `/company/all`);
+    return result;
+
+    // return fetch(appSettings.baseApiUrl + `/company/all`)
+    //     .then(response => response.json());
 }

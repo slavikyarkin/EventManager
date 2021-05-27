@@ -1,21 +1,20 @@
+import { TokenModel } from './Shared/Login/LoginModel';
 import { useState } from 'react';
 
-export default function useToken() {
-  const getToken = () => {
-    // const tokenString: string = sessionStorage.getItem('token');
-    // const userToken = JSON.parse(tokenString);
-    // return userToken?.token
-  };
+export default function getToken() {
+ 
+    const tokenString: string | null = sessionStorage.getItem('token');
 
-  const [token, setToken] = useState(getToken());
+    if (!tokenString) {
+      return undefined;
+    }
 
-//   const saveToken = userToken => {
-//     sessionStorage.setItem('token', JSON.stringify(userToken));
-//     setToken(userToken.token);
-//   };
+    const model: TokenModel = JSON.parse(tokenString);
 
-  return {
-    // setToken: saveToken,
-    token
-  }
+    if (model.experationDate < new Date()) {
+      return undefined;
+    }
+
+    return model.token
+ 
 }

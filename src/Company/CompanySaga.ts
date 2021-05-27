@@ -36,9 +36,9 @@ function* createCompany(action: ActionType<typeof actions.createCompany>) {
 
 function* loadAll(action: ActionType<typeof actions.loadAll>) {
     try {
-        //const data: CompanyData[] = yield call(Api.getAllCompanies);
-
-        const model: CompanyModel[] = [{id: 1, name: 'C1'}, {id: 2, name: 'C2'}] // data.map(mapper.mapToModel);
+        const data: CompanyData[] = yield call(Api.getAllCompanies);
+        const model = data.map(x => { return { ...x } });
+        //const model: CompanyModel[] = [{id: 1, name: 'C1'}, {id: 2, name: 'C2'}] // data.map(mapper.mapToModel);
         yield put(actions.loadAllSuccess(model));
     } catch (e) {
         yield put(actions.loadCompanyFail(e));

@@ -9,9 +9,9 @@ import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from "redux-devtools-extension";
 import { rootReducer } from './rootReducer';
-import { companySaga } from './Company/CompanySaga';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Router, useHistory } from 'react-router-dom';
+import { rootSaga } from './rootSaga';
 
 
 
@@ -23,7 +23,7 @@ const store = createStore(
 )
 
 
-sagaMiddleware.run(companySaga);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

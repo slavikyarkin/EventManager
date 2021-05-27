@@ -9,10 +9,6 @@ const initialState: LoginState = {
 
 export function loginReducer(state: LoginState = initialState, action: LoginAction): LoginState {
   switch (action.type) {
-    case (getType(loginActions.logInSuccess)):
-      return {
-        login: action.payload
-      };
     default:
       return {
         ...state

@@ -13,7 +13,7 @@ import LoginContainer from './Shared/Login/LoginContainer';
 import { connect } from 'react-redux';
 import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
-import useToken from './useToken';
+import getToken from './useToken';
 
 
 interface Props extends RouteComponentProps {
@@ -22,7 +22,7 @@ interface Props extends RouteComponentProps {
 }
 
 const App = (props: Props) => {
-  const token = useToken();
+  const token = getToken();
 
   React.useEffect(() => {
     if (props.routerModel && props.routerModel.redirectTo && props.location.pathname !== props.routerModel.redirectTo) {

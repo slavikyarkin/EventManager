@@ -4,7 +4,6 @@ import './Login.scss';
 import { TextField } from '@material-ui/core';
 import { LoginFormModel, LoginModel } from './LoginModel';
 import PropTypes from 'prop-types';
-import { logIn } from './LoginAPI';
 import { ApplicationState } from '../../applicationState';
 import { bindActionCreators, Dispatch } from 'redux';
 import * as actions from "./LoginActions";
