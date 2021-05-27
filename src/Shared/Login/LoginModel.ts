@@ -8,3 +8,8 @@ export interface LoginFormModel {
     errors: Map<string, string>;
     isLoading: boolean;
 }
+
+export interface TokenModel {
+    token : string;
+    experationDate : Date;
+}
