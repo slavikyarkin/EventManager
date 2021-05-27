@@ -35,12 +35,11 @@ interface Props extends OwnProps, StateProps, DispatchProps {
 const LoginContainer = (props: Props) => {
     const [state, setState] = React.useState<LoginFormModel>(initialState);
 
-    const handleSubmit = async (e) => {
-        
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         setState({ ...state, isLoading: true });
         props.submit(state.formData);
-
-        return false;
+        
         // setToken(token);
     }
 

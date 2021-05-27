@@ -11,11 +11,12 @@ export function* loginSaga() {
 
 function* logIn(action: ActionType<typeof actions.logIn>) {
     try {   
+        const data: LoginData = yield call(Api.logIn, action.payload);
+        // const model: LoginModel = mapper.mapToModel(data);
 
-
-        //sessionStorage.setItem('token', JSON.stringify(userToken));
-
+        // sessionStorage.setItem('token', model.token);
+        // yield put(actions.logInSuccess(model));
     } catch (e) {
-        yield put({ type: "login/LOG_IN_FAIL", message: e.message });
+        yield put(actions.logInFail(e));
     }
 }
