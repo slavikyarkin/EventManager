@@ -1,13 +1,14 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import './Login.scss';
-import { TextField } from '@material-ui/core';
+import { Link, TextField } from '@material-ui/core';
 import { LoginFormModel, LoginModel } from './LoginModel';
 import PropTypes from 'prop-types';
 import { ApplicationState } from '../../applicationState';
 import { bindActionCreators, Dispatch } from 'redux';
 import * as actions from "./LoginActions";
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const initialState: LoginFormModel = {
     formData: {
@@ -38,7 +39,7 @@ const LoginContainer = (props: Props) => {
         e.preventDefault();
         setState({ ...state, isLoading: true });
         props.submit(state.formData);
-        
+
         // setToken(token);
     }
 
@@ -71,9 +72,10 @@ const LoginContainer = (props: Props) => {
         return errors;
     }
 
+    const history = useHistory();
     const { formData, isLoading } = state;
     return (
-        <form onSubmit={e => handleSubmit(e)}>
+        <form className={"login-wrapper"} onSubmit={e => handleSubmit(e)}>
             <h2>Login</h2>
             <TextField required
                 error={state.errors.has('Email')}
@@ -97,10 +99,19 @@ const LoginContainer = (props: Props) => {
                 variant="contained"
                 type="submit"
                 disabled={isLoading}
-                
-               
             >
-                LOGIN
+                Log In
+            </Button>
+            <Link href="#" >
+                Forgotten password?
+            </Link>
+            <br />
+            <Button
+                color="secondary"
+                variant="contained"
+                onClick={()=>history.push('/logup')}
+            >
+                Create New Account
             </Button>
         </form>
     );

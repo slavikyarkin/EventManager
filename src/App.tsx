@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
 import getToken from './useToken';
+import LogupContainer from './Shared/Logup/LogupContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -29,10 +30,6 @@ const App = (props: Props) => {
       props.history.push(props.routerModel.redirectTo);
     }
   });
-
-  if(!token) {
-    return <LoginContainer />
-  }
 
   return (
     <div className={"main-container"}>
@@ -59,6 +56,9 @@ const App = (props: Props) => {
         </Route>
         <Route path="/login">
           <LoginContainer />
+        </Route>
+        <Route path="/logup">
+          <LogupContainer />
         </Route>
         <Route path="/">
           <div>HOME</div>
