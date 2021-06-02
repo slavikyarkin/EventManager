@@ -31,6 +31,10 @@ const App = (props: Props) => {
     }
   });
 
+  if(!token) {
+    return <LoginContainer />
+  }
+
   return (
     <div className={"main-container"}>
 
