@@ -4,6 +4,6 @@ export interface LoginData {
 }
 
 export interface TokenData {
-    token : string;
-    experationDate : Date;
+    access_token : string;
+    emmail : string;
 }

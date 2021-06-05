@@ -11,10 +11,10 @@ export default function getToken() {
 
     const model: TokenModel = JSON.parse(tokenString);
 
-    if (model.experationDate < new Date()) {
-      return undefined;
-    }
+    // if (model.experationDate < new Date()) {
+    //   return undefined;
+    // }
 
-    return model.token
+    return model.access_token
  
 }

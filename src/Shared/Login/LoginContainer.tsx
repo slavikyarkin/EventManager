@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import './Login.scss';
-import { Link, TextField } from '@material-ui/core';
+import { Grid, Link, TextField } from '@material-ui/core';
 import { LoginFormModel, LoginModel } from './LoginModel';
 import PropTypes from 'prop-types';
 import { ApplicationState } from '../../applicationState';
@@ -82,6 +82,7 @@ const LoginContainer = (props: Props) => {
                 onChange={(e) => setModel({ ...state.formData, email: e.currentTarget.value })}
                 id="standard-error-helper-text"
                 label="Email"
+                type="email"
                 helperText={state.errors.get('Email')}
             />
             <br />
@@ -94,22 +95,24 @@ const LoginContainer = (props: Props) => {
                 helperText={state.errors.get('Password')}
             />
             <br />
-            <Button
-                color="primary"
-                variant="contained"
-                type="submit"
-                disabled={isLoading}
-            >
-                Log In
-            </Button>
-            <Link href="#" >
-                Forgotten password?
-            </Link>
+            <Grid item xs={12}>
+                {/* <Link href="#" >
+                    Forgotten password? 
+                </Link> */}
+                <Button
+                    color="primary"
+                    variant="contained"
+                    type="submit"
+                    disabled={isLoading}
+                >
+                    Log In
+                </Button>
+            </Grid>
             <br />
             <Button
                 color="secondary"
                 variant="contained"
-                onClick={()=>history.push('/logup')}
+                onClick={() => history.push('/logup')}
             >
                 Create New Account
             </Button>

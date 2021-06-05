@@ -72,12 +72,6 @@ const App = (props: Props) => {
         <Route path="/company/:companyId" component={CompanyContainer} >
           <MainBodyComponent />
         </Route>
-        <Route path="/login">
-          <LoginContainer />
-        </Route>
-        <Route path="/logup">
-          <LogupContainer />
-        </Route>
         <Route path="/">
           <div>HOME</div>
         </Route>

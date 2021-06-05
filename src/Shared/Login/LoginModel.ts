@@ -10,6 +10,6 @@ export interface LoginFormModel {
 }
 
 export interface TokenModel {
-    token : string;
-    experationDate : Date;
+    access_token : string;
+    emmail : string;
 }

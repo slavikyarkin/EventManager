@@ -5,8 +5,10 @@ import { ApplicationState } from '../../applicationState';
 import { bindActionCreators, Dispatch } from 'redux';
 import * as actions from "./LogupActions";
 import { connect } from 'react-redux';
-import { LogupFormModel, LogupModel } from './LogupModel';
+import { LogupFormModel, LogupModel, LogupRequestModel } from './LogupModel';
 import './Logup.scss';
+import { KeyboardDatePicker } from '@material-ui/pickers';
+import { mapToRequestModel } from './LogupMapper';
 
 const initialState: LogupFormModel = {
     formData: {
@@ -14,6 +16,7 @@ const initialState: LogupFormModel = {
         lastName: '',
         email: '',
         password: '',
+        repeatPassword: '',
     },
     errors: new Map,
     isLoading: false,
@@ -26,19 +29,20 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    submit: (model: LogupModel) => void;
+    submit: (model: LogupRequestModel) => void;
 }
 
 interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
-const LoginContainer = (props: Props) => {
+const LogupContainer = (props: Props) => {
     const [state, setState] = React.useState<LogupFormModel>(initialState);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setState({ ...state, isLoading: true });
-        props.submit(state.formData);
+        props.submit(mapToRequestModel(state.formData));
+        
 
         // setToken(token);
     }
@@ -60,6 +64,12 @@ const LoginContainer = (props: Props) => {
 
     const validateModel = (model: LogupModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
+        if (model.firstName == '') {
+            errors.set('First Name', 'First Name is required')
+        }
+        if (model.lastName == '') {
+            errors.set('Last Name', 'Last Name is required')
+        }
         if (model.email == '') {
             errors.set('Email', 'Email is required');
         } else if (!validateEmail(model.email)) {
@@ -67,6 +77,15 @@ const LoginContainer = (props: Props) => {
         }
         if (model.password == '') {
             errors.set('Password', 'Password is required')
+        }
+        if (model.repeatPassword == '') {
+            errors.set('Repeat Password', 'Password is required')
+        }
+        if (model.password !== '' && model.repeatPassword !== '') {
+            if (model.password !== model.repeatPassword) {
+                errors.set('Password', 'Password mismatch')
+                errors.set('Repeat Password', 'Password mismatch')
+            }
         }
 
         return errors;
@@ -96,6 +115,10 @@ const LoginContainer = (props: Props) => {
                 id="date"
                 label="Date of birth"
                 type="date"
+                onChange={(e) => setModel({ ...state.formData, lastName: e.currentTarget.value })}
+                InputLabelProps={{
+                    shrink: true,
+                }}
             />
             <br />
             <TextField required
@@ -103,6 +126,7 @@ const LoginContainer = (props: Props) => {
                 onChange={(e) => setModel({ ...state.formData, email: e.currentTarget.value })}
                 id="standard-error-helper-text"
                 label="Email"
+                type="email"
                 helperText={state.errors.get('Email')}
             />
             <br />
@@ -116,12 +140,12 @@ const LoginContainer = (props: Props) => {
             />
             <br />
             <TextField required
-                error={state.errors.has('Password')}
-                onChange={(e) => setModel({ ...state.formData, password: e.currentTarget.value })}
+                error={state.errors.has('Repeat Password')}
+                onChange={(e) => setModel({ ...state.formData, repeatPassword: e.currentTarget.value })}
                 id="standard-password-input"
                 label="Repeat password"
                 type="password"
-                helperText={state.errors.get('Password')}
+                helperText={state.errors.get('Repeat Password')}
             />
             <br />
             <Button
@@ -148,5 +172,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(LogupContainer);
 
