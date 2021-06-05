@@ -31,8 +31,23 @@ const App = (props: Props) => {
     }
   });
 
-  if(!token) {
-    return <LoginContainer />
+  if (!token) {
+    return (
+      <>
+        <TopNavigationComponent />
+        <Switch>
+          <Route path="/login">
+            <LoginContainer />
+          </Route>
+          <Route path="/logup">
+            <LogupContainer />
+          </Route>
+          <Route path="/">
+            <div>HOME</div>
+          </Route>
+        </Switch>
+      </>
+    )
   }
 
   return (
@@ -52,7 +67,6 @@ const App = (props: Props) => {
           <div>SHOW EVENT</div>
         </Route>
         <Route path="/company/new">
-
           <CompanyCreateContainer />
         </Route>
         <Route path="/company/:companyId" component={CompanyContainer} >
