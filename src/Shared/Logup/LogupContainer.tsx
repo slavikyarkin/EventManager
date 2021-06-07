@@ -40,11 +40,10 @@ const LogupContainer = (props: Props) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setState({ ...state, isLoading: true });
-        props.submit(mapToRequestModel(state.formData));
-        
-
-        // setToken(token);
+        if (state.errors.size == 0) {
+            setState({ ...state, isLoading: true });
+            props.submit(mapToRequestModel(state.formData));
+        } 
     }
 
     const setModel = (model: LogupModel) => {
@@ -98,7 +97,7 @@ const LogupContainer = (props: Props) => {
             <TextField required
                 error={state.errors.has('First Name')}
                 onChange={(e) => setModel({ ...state.formData, firstName: e.currentTarget.value })}
-                id="standard-error-helper-text"
+                id="First Name"
                 label="First Name"
                 helperText={state.errors.get('First Name')}
             />
@@ -106,13 +105,13 @@ const LogupContainer = (props: Props) => {
             <TextField required
                 error={state.errors.has('Last Name')}
                 onChange={(e) => setModel({ ...state.formData, lastName: e.currentTarget.value })}
-                id="standard-error-helper-text"
+                id="Last Name"
                 label="Last Name"
                 helperText={state.errors.get('Last Name')}
             />
             <br />
             <TextField
-                id="date"
+                id="Date of birth"
                 label="Date of birth"
                 type="date"
                 onChange={(e) => setModel({ ...state.formData, lastName: e.currentTarget.value })}
@@ -124,7 +123,7 @@ const LogupContainer = (props: Props) => {
             <TextField required
                 error={state.errors.has('Email')}
                 onChange={(e) => setModel({ ...state.formData, email: e.currentTarget.value })}
-                id="standard-error-helper-text"
+                id="Email"
                 label="Email"
                 type="email"
                 helperText={state.errors.get('Email')}
@@ -133,7 +132,7 @@ const LogupContainer = (props: Props) => {
             <TextField required
                 error={state.errors.has('Password')}
                 onChange={(e) => setModel({ ...state.formData, password: e.currentTarget.value })}
-                id="standard-password-input"
+                id="Password"
                 label="Password"
                 type="password"
                 helperText={state.errors.get('Password')}
@@ -142,7 +141,7 @@ const LogupContainer = (props: Props) => {
             <TextField required
                 error={state.errors.has('Repeat Password')}
                 onChange={(e) => setModel({ ...state.formData, repeatPassword: e.currentTarget.value })}
-                id="standard-password-input"
+                id="Repeat password"
                 label="Repeat password"
                 type="password"
                 helperText={state.errors.get('Repeat Password')}

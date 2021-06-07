@@ -37,10 +37,10 @@ const LoginContainer = (props: Props) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setState({ ...state, isLoading: true });
-        props.submit(state.formData);
-
-        // setToken(token);
+        if (state.errors.size == 0) {
+            setState({ ...state, isLoading: true });
+            props.submit(state.formData);
+        } 
     }
 
     const setModel = (model: LoginModel) => {
@@ -80,7 +80,7 @@ const LoginContainer = (props: Props) => {
             <TextField required
                 error={state.errors.has('Email')}
                 onChange={(e) => setModel({ ...state.formData, email: e.currentTarget.value })}
-                id="standard-error-helper-text"
+                id="email"
                 label="Email"
                 type="email"
                 helperText={state.errors.get('Email')}
@@ -89,7 +89,7 @@ const LoginContainer = (props: Props) => {
             <TextField required
                 error={state.errors.has('Password')}
                 onChange={(e) => setModel({ ...state.formData, password: e.currentTarget.value })}
-                id="standard-password-input"
+                id="password"
                 label="Password"
                 type="password"
                 helperText={state.errors.get('Password')}
