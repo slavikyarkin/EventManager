@@ -112,7 +112,7 @@ const LoginContainer = (props: Props) => {
             <Button
                 color="secondary"
                 variant="contained"
-                onClick={() => history.push('/logup')}
+                onClick={() => history.push('/signup')}
             >
                 Create New Account
             </Button>

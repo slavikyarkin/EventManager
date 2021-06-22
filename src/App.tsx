@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
 import getToken from './useToken';
-import LogupContainer from './Shared/Logup/LogupContainer';
+import LogupContainer from './Shared/Signup/SignupContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -39,7 +39,7 @@ const App = (props: Props) => {
           <Route path="/login">
             <LoginContainer />
           </Route>
-          <Route path="/logup">
+          <Route path="/Signup">
             <LogupContainer />
           </Route>
           <Route path="/">

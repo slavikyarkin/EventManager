@@ -3,14 +3,14 @@ import Button from '@material-ui/core/Button';
 import { TextField } from '@material-ui/core';
 import { ApplicationState } from '../../applicationState';
 import { bindActionCreators, Dispatch } from 'redux';
-import * as actions from "./LogupActions";
+import * as actions from "./SignupActions";
 import { connect } from 'react-redux';
-import { LogupFormModel, LogupModel, LogupRequestModel } from './LogupModel';
-import './Logup.scss';
+import { SignupFormModel, SignupModel, SignupRequestModel } from './SignupModel';
+import './Signup.scss';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import { mapToRequestModel } from './LogupMapper';
+import { mapToRequestModel } from './SignupMapper';
 
-const initialState: LogupFormModel = {
+const initialState: SignupFormModel = {
     formData: {
         firstName: '',
         lastName: '',
@@ -29,14 +29,14 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    submit: (model: LogupRequestModel) => void;
+    submit: (model: SignupRequestModel) => void;
 }
 
 interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
-const LogupContainer = (props: Props) => {
-    const [state, setState] = React.useState<LogupFormModel>(initialState);
+const SignupContainer = (props: Props) => {
+    const [state, setState] = React.useState<SignupFormModel>(initialState);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -46,7 +46,7 @@ const LogupContainer = (props: Props) => {
         } 
     }
 
-    const setModel = (model: LogupModel) => {
+    const setModel = (model: SignupModel) => {
         const errors = validateModel(model);
 
         setState({
@@ -61,7 +61,7 @@ const LogupContainer = (props: Props) => {
         return re.test(email);
     }
 
-    const validateModel = (model: LogupModel): Map<string, string> => {
+    const validateModel = (model: SignupModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
         if (model.firstName == '') {
             errors.set('First Name', 'First Name is required')
@@ -92,8 +92,8 @@ const LogupContainer = (props: Props) => {
 
     const { formData, isLoading } = state;
     return (
-        <form className={"logup-wrapper"} onSubmit={e => handleSubmit(e)}>
-            <h2>Logup</h2>
+        <form className={"signup-wrapper"} onSubmit={e => handleSubmit(e)}>
+            <h2>Sign up</h2>
             <TextField required
                 error={state.errors.has('First Name')}
                 onChange={(e) => setModel({ ...state.formData, firstName: e.currentTarget.value })}
@@ -153,7 +153,7 @@ const LogupContainer = (props: Props) => {
                 type="submit"
                 disabled={isLoading}
             >
-                LOGUP
+                Sign up
             </Button>
         </form>
     );
@@ -167,9 +167,9 @@ const mapStateToProps = (state: ApplicationState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
-        submit: actions.logUp
+        submit: actions.signUp
     }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogupContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);
 

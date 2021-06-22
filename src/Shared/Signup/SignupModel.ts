@@ -1,4 +1,4 @@
-export interface LogupData {
+export interface SignupModel {
     firstName : string;
     lastName : string;
     dateOfBirth? : string;
@@ -7,7 +7,13 @@ export interface LogupData {
     repeatPassword : string;
 }
 
-export interface LogupRequestData {
+export interface SignupFormModel {
+    formData: SignupModel;
+    errors: Map<string, string>;
+    isLoading: boolean;
+}
+
+export interface SignupRequestModel {
     firstName : string;
     lastName : string;
     dateOfBirth? : Date;
@@ -15,7 +21,7 @@ export interface LogupRequestData {
     password : string;
 }
 
-export interface UserData {
+export interface UserModel {
     id : number;
     firstName : string;
     lastName : string;

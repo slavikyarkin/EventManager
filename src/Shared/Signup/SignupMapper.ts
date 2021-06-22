@@ -1,6 +1,6 @@
-import { LogupModel, LogupRequestModel } from "./LogupModel";
+import { SignupModel, SignupRequestModel } from "./SignupModel";
 
-export const mapToRequestModel = (data: LogupModel): LogupRequestModel => {
+export const mapToRequestModel = (data: SignupModel): SignupRequestModel => {
     return {
         firstName: data.firstName,
         lastName: data.lastName,
