@@ -67,8 +67,6 @@ function* handleResponse(response: Response, method: string, apiName: string, re
     throw new ApiError(text);
 }
 
-
-
 function revokeToken(apiName: string) {
     sessionStorage.removeItem('token');
 };

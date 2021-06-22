@@ -1,7 +1,7 @@
 export interface LogupModel {
     firstName : string;
     lastName : string;
-    dateOfBirth? : Date;
+    dateOfBirth? : string;
     email : string;
     password : string;
     repeatPassword : string;

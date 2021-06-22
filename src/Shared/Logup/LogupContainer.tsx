@@ -114,7 +114,7 @@ const LogupContainer = (props: Props) => {
                 id="Date of birth"
                 label="Date of birth"
                 type="date"
-                onChange={(e) => setModel({ ...state.formData, lastName: e.currentTarget.value })}
+                onChange={(e) => setModel({ ...state.formData, dateOfBirth: e.currentTarget.value })}
                 InputLabelProps={{
                     shrink: true,
                 }}
