@@ -1,8 +1,8 @@
-import * as logupActions from "./SignupActions";
+import * as SignupActions from "./SignupActions";
 import { ActionType, getType } from "typesafe-actions";
 import { SignupState } from "./SignupState";
 
-export type SignupAction = ActionType<typeof logupActions>;
+export type SignupAction = ActionType<typeof SignupActions>;
 
 const initialState: SignupState = {
 }

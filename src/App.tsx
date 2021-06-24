@@ -15,7 +15,7 @@ import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
 import getToken from './useToken';
 import LogupContainer from './Shared/Signup/SignupContainer';
-import CustomizedSnackbars from './Shared/Snackbar/SnackbarContainer';
+import  CustomizedSnackbars from './Shared/Snackbar/SnackbarContainer';
 
 
 interface Props extends RouteComponentProps {
