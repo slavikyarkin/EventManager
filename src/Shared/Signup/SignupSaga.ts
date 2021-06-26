@@ -5,6 +5,8 @@ import * as actions from "./SignupActions";
 import { SignupModel, UserModel } from './SignupModel';
 import { SignupData, UserData } from './SignupData';
 import * as errorActions from "../ErrorMessages/errorActions";
+import * as snackbarActions from "../Snackbar/SnackbarActions";
+
 
 export function* logupSaga() {
     yield takeLatest(getType(actions.signUp), signUp);
@@ -16,8 +18,10 @@ function* signUp(action: ActionType<typeof actions.signUp>) {
         const model: UserModel = { ...data }
 
         yield put(actions.signUpSuccess(model));
+        yield put(snackbarActions.showSnackbar({message: 'Your registration was submitted successfully.', severity: 'success'}))
     } catch (e) {
         yield put(actions.signUpFail(e));
         yield put(errorActions.error(e));
+        yield put(snackbarActions.showSnackbar({message: e.message, severity: 'error'}))
     }
 }

@@ -5,6 +5,7 @@ import { eventReducer } from "./Event/EventReducer";
 import { routerReducer } from "./Shared/Router/routerReducer";
 import { loginReducer } from './Shared/Login/LoginReducer';
 import { logupReducer } from "./Shared/Signup/SignupReducer";
+import { snackbarReducer } from "./Shared/Snackbar/SnackbarReducer";
 
 export const rootReducer = combineReducers<ApplicationState>({
     companyState: companyReducer,
@@ -12,4 +13,5 @@ export const rootReducer = combineReducers<ApplicationState>({
     routerState: routerReducer,
     loginState: loginReducer,
     logupState: logupReducer,
+    snackbarState: snackbarReducer,
 })

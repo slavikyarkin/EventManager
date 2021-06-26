@@ -21,6 +21,5 @@ function* logIn(action: ActionType<typeof actions.logIn>) {
     } catch (e) {
         yield put(actions.logInFail(e));
         yield put(errorActions.error(e));
-        yield put(SnackbarActions.snackbar(e))
     }
 }

@@ -1,3 +1,9 @@
-export interface SnackbarData {
-    open : boolean;
+import { AlertProps, Color } from "@material-ui/lab/Alert";
+
+export interface SnackbarModel {
+    open?: boolean;
+    message: string;
+    severity: Color;
 }
+
+export type SnackbarShowAction = Pick<SnackbarModel, 'message' | 'severity'>

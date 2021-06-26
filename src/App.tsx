@@ -15,7 +15,7 @@ import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
 import getToken from './useToken';
 import LogupContainer from './Shared/Signup/SignupContainer';
-import  CustomizedSnackbars from './Shared/Snackbar/SnackbarContainer';
+import {SnackbarContainer} from './Shared/Snackbar/SnackbarContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -36,7 +36,7 @@ const App = (props: Props) => {
     return (
       <>
         <TopNavigationComponent />
-        <CustomizedSnackbars />
+        <SnackbarContainer />
         <Switch>
           <Route path="/login">
             <LoginContainer />

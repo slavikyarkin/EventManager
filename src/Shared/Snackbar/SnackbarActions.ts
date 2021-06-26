@@ -1,7 +1,7 @@
 import { createAction } from "typesafe-actions";
+import { SnackbarShowAction } from "./SnackbarData";
+import { SnackbarModel } from "./SnackbarModel";
 
-export const snackbar = createAction('snackbar/SNACKBAR')<string>();
+export const showSnackbar = createAction('snackbar/SHOW_SNACKBAR')<SnackbarShowAction>();
 
-export const snackbarSuccess = createAction('snackbar/SNACKBAR_SUCCESS')<string>();
-
-export const snackbarFail = createAction('snackbar/SNACKBAR_FAILE')<Error>();
+export const hideSnackbar = createAction('snackbar/HIDE_SNACKBAR')<undefined>();
