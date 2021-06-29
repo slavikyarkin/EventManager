@@ -5,7 +5,8 @@ import * as actions from "./LoginActions";
 import { LoginModel, TokenModel } from './LoginModel';
 import { LoginData, TokenData } from './LoginData';
 import * as errorActions from "../ErrorMessages/errorActions";
-import * as SnackbarActions from "../Snackbar/SnackbarActions";
+import * as snackbarActions from "../Snackbar/SnackbarActions";
+import { BadRequestError } from '../exceptions';
 
 export function* loginSaga() {
     yield takeLatest(getType(actions.logIn), logIn);
@@ -21,5 +22,8 @@ function* logIn(action: ActionType<typeof actions.logIn>) {
     } catch (e) {
         yield put(actions.logInFail(e));
         yield put(errorActions.error(e));
+        if (e instanceof BadRequestError) {
+            yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))
+        } 
     }
 }

@@ -6,6 +6,7 @@ import { SignupModel, UserModel } from './SignupModel';
 import { SignupData, UserData } from './SignupData';
 import * as errorActions from "../ErrorMessages/errorActions";
 import * as snackbarActions from "../Snackbar/SnackbarActions";
+import { BadRequestError } from '../exceptions';
 
 
 export function* logupSaga() {
@@ -22,6 +23,8 @@ function* signUp(action: ActionType<typeof actions.signUp>) {
     } catch (e) {
         yield put(actions.signUpFail(e));
         yield put(errorActions.error(e));
-        yield put(snackbarActions.showSnackbar({message: e.message, severity: 'error'}))
+        if (e instanceof BadRequestError) {
+            yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))
+        } 
     }
 }

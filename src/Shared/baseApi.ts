@@ -50,14 +50,13 @@ function* handleResponse(response: Response, method: string, apiName: string, re
     }
 
     if (response.status === 400) {
-        const data = yield response.json();
-        throw new BadRequestError(data.message);
-
+        console.log('handleResponse ...400');
+        const data = yield response.text();
+        throw new BadRequestError(data);
     }
 
     if (response.status === 404) {
         console.log('handleResponse ...404');
-
         throw new NotFoundRequestError();
     }
 
