@@ -16,6 +16,7 @@ import { RouterModel } from './Shared/Router/RouterModel';
 import getToken from './useToken';
 import LogupContainer from './Shared/Signup/SignupContainer';
 import {SnackbarContainer} from './Shared/Snackbar/SnackbarContainer';
+import IdentifyContainer from './Shared/Login/Identify/IdentifyContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -38,6 +39,9 @@ const App = (props: Props) => {
         <TopNavigationComponent />
         <SnackbarContainer />
         <Switch>
+        <Route path="/identify">
+            <IdentifyContainer />
+          </Route>
           <Route path="/login">
             <LoginContainer />
           </Route>

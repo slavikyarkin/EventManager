@@ -1,19 +1,18 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import './Login.scss';
+import './Identify.scss';
 import { Grid, Link, TextField } from '@material-ui/core';
-import { LoginFormModel, LoginModel } from './LoginModel';
+import { IdentifyFormModel, IdentifyModel } from './IdentifyModel';
 import PropTypes from 'prop-types';
-import { ApplicationState } from '../../applicationState';
+import { ApplicationState } from '../../../applicationState';
 import { bindActionCreators, Dispatch } from 'redux';
-import * as actions from "./LoginActions";
+import * as actions from "./IdentifyActions";
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-const initialState: LoginFormModel = {
+const initialState: IdentifyFormModel = {
     formData: {
         email: '',
-        password: '',
     },
     errors: new Map,
     isLoading: false,
@@ -26,14 +25,14 @@ interface StateProps {
 }
 
 interface DispatchProps {
-    submit: (model: LoginModel) => void;
+    submit: (model: IdentifyModel) => void;
 }
 
 interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
-const LoginContainer = (props: Props) => {
-    const [state, setState] = React.useState<LoginFormModel>(initialState);
+const IdentifyContainer = (props: Props) => {
+    const [state, setState] = React.useState<IdentifyFormModel>(initialState);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -43,7 +42,7 @@ const LoginContainer = (props: Props) => {
         } 
     }
 
-    const setModel = (model: LoginModel) => {
+    const setModel = (model: IdentifyModel) => {
         const errors = validateModel(model);
 
         setState({
@@ -58,15 +57,12 @@ const LoginContainer = (props: Props) => {
         return re.test(email);
     }
 
-    const validateModel = (model: LoginModel): Map<string, string> => {
+    const validateModel = (model: IdentifyModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
         if (model.email == '') {
             errors.set('Email', 'Email is required');
         } else if (!validateEmail(model.email)) {
             errors.set('Email', 'Email is invalid');
-        }
-        if (model.password == '') {
-            errors.set('Password', 'Password is required')
         }
 
         return errors;
@@ -75,8 +71,8 @@ const LoginContainer = (props: Props) => {
     const history = useHistory();
     const { formData, isLoading } = state;
     return (
-        <form className={"login-wrapper"} onSubmit={e => handleSubmit(e)}>
-            <h2>Login</h2>
+        <form className={"identify-wrapper"} onSubmit={e => handleSubmit(e)}>
+            <h2>Email</h2>
             <TextField required
                 error={state.errors.has('Email')}
                 onChange={(e) => setModel({ ...state.formData, email: e.currentTarget.value })}
@@ -86,36 +82,16 @@ const LoginContainer = (props: Props) => {
                 helperText={state.errors.get('Email')}
             />
             <br />
-            <TextField required
-                error={state.errors.has('Password')}
-                onChange={(e) => setModel({ ...state.formData, password: e.currentTarget.value })}
-                id="password"
-                label="Password"
-                type="password"
-                helperText={state.errors.get('Password')}
-            />
-            <br />
             <Grid item xs={12}>
-                <Link href="" onClick={() => history.push('/identify')}>
-                    Forgotten password? 
-                </Link>
                 <Button
                     color="primary"
                     variant="contained"
                     type="submit"
                     disabled={isLoading}
                 >
-                    Log In
+                    Submit
                 </Button>
             </Grid>
-            <br />
-            <Button
-                color="secondary"
-                variant="contained"
-                onClick={() => history.push('/signup')}
-            >
-                Create New Account
-            </Button>
         </form>
     );
 }
@@ -128,9 +104,9 @@ const mapStateToProps = (state: ApplicationState) => {
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return bindActionCreators({
-        submit: actions.logIn
+        submit: actions.identify
     }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(IdentifyContainer);
 
