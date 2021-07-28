@@ -5,6 +5,6 @@ import { IdentifyData } from "./IdentifyData";
 declare const appSettings: AppSettings;
 
 export function* postIdentify(data: IdentifyData) {
-    const result: string = yield baseApi.post<IdentifyData, string>(appSettings.baseApiUrl + `/sendRestoreEmail`, data);
+    const result: string = yield baseApi.post<IdentifyData, string>(appSettings.baseApiUrl + `/user/sendRestoreEmail`, data);
     return result;
 }
