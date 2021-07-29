@@ -10,6 +10,7 @@ import { BadRequestError } from '../exceptions';
 
 export function* loginSaga() {
     yield takeLatest(getType(actions.logIn), logIn);
+    yield takeLatest(getType(actions.validateUser), validateUser);
 }
 
 function* logIn(action: ActionType<typeof actions.logIn>) {
@@ -21,6 +22,19 @@ function* logIn(action: ActionType<typeof actions.logIn>) {
         yield put(actions.logInSuccess(model));
     } catch (e) {
         yield put(actions.logInFail(e));
+        yield put(errorActions.error(e));
+        if (e instanceof BadRequestError) {
+            yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))
+        } 
+    }
+}
+
+function* validateUser(action: ActionType<typeof actions.validateUser>) {
+    try {
+        const data: string = yield call(Api.postValidateUser, action.payload);
+
+        yield put(snackbarActions.showSnackbar({ message: data, severity: 'success' }))
+    } catch (e) {
         yield put(errorActions.error(e));
         if (e instanceof BadRequestError) {
             yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))

@@ -9,6 +9,7 @@ import { bindActionCreators, Dispatch } from 'redux';
 import * as actions from "./LoginActions";
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { action } from 'typesafe-actions';
 
 const initialState: LoginFormModel = {
     formData: {
@@ -27,6 +28,7 @@ interface StateProps {
 
 interface DispatchProps {
     submit: (model: LoginModel) => void;
+    load: (params : string) => void;
 }
 
 interface Props extends OwnProps, StateProps, DispatchProps {
@@ -72,10 +74,16 @@ const LoginContainer = (props: Props) => {
         return errors;
     }
 
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.location.search != "") {
+            props.load(window.location.search);
+        }
+      });
+
     const history = useHistory();
     const { formData, isLoading } = state;
     return (
-        <form className={"login-wrapper"} onSubmit={e => handleSubmit(e)}>
+        <form id="form" className={"login-wrapper"} onSubmit={e => handleSubmit(e)}>
             <h2>Login</h2>
             <TextField required
                 error={state.errors.has('Email')}
@@ -120,16 +128,14 @@ const LoginContainer = (props: Props) => {
     );
 }
 
-const mapStateToProps = (state: ApplicationState) => {
-    return {
-        routerModel: state.routerState.router,
-    }
-};
+const mapStateToProps = (state: ApplicationState) => ({
+    routerModel: state.routerState.router,
+    routerModela: state.routerState.router,
+});
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return bindActionCreators({
-        submit: actions.logIn
-    }, dispatch);
+const mapDispatchToProps = {
+    submit: actions.logIn,
+    load: actions.validateUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginContainer);

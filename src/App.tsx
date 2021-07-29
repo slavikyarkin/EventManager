@@ -17,6 +17,7 @@ import getToken from './useToken';
 import LogupContainer from './Shared/Signup/SignupContainer';
 import {SnackbarContainer} from './Shared/Snackbar/SnackbarContainer';
 import IdentifyContainer from './Shared/Login/Identify/IdentifyContainer';
+import ResetPasswordContainer from './Shared/Login/ResetPassword/ResetPasswordContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -45,6 +46,9 @@ const App = (props: Props) => {
           <Route path="/login">
             <LoginContainer />
           </Route>
+          <Route path="/resetPassword">
+            <ResetPasswordContainer />
+          </Route>
           <Route path="/Signup">
             <LogupContainer />
           </Route>
@@ -64,7 +68,6 @@ const App = (props: Props) => {
       <Switch>
         <Route path="/events">
           <div>EVENTS</div>
-
         </Route>
         <Route path="/event/new">
           <div>Create new event</div>

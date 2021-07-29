@@ -8,3 +8,8 @@ export function* postLogin(data: LoginData) {
     const result: TokenData = yield baseApi.post<LoginData, TokenData>(appSettings.baseApiUrl + `/user/authenticate`, data);
     return result;
 }
+
+export function* postValidateUser(params: string) {
+    const result: string = yield baseApi.post<undefined, string>(appSettings.baseApiUrl + `/user/validateUser` + params, undefined);
+    return result;
+}
