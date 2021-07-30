@@ -2,8 +2,10 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 
 import Container from '@material-ui/core/Container';
-import { Button, Card, CardActions, CardContent, Grid, List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { Button, ButtonGroup, Card, CardActions, CardContent, DialogActions, Grid, List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import { isTemplateExpression } from 'typescript';
+
+import * as dialogActions from "../Dialog/DialogActions";
 
 const events = [1, 2, 3, 4, 5, 6]
 
@@ -11,6 +13,10 @@ export function MainBodyComponent() {
     const history = useHistory();
     return (
         <Container maxWidth='md'>
+            <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" fullWidth>
+                <Button>Edit company</Button>
+                <Button>Delete company</Button>
+            </ButtonGroup>
             <List>
 
                 <ListItem button key={'Add event'} >

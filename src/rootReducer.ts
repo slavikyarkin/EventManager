@@ -8,6 +8,7 @@ import { logupReducer } from "./Shared/Signup/SignupReducer";
 import { snackbarReducer } from "./Shared/Snackbar/SnackbarReducer";
 import { identifyReducer } from "./Shared/Login/Identify/IdentifyReducer";
 import { resetPasswordReducer } from "./Shared/Login/ResetPassword/ResetPasswordReducer";
+import { dialogReducer } from "./Shared/Dialog/DialogReducer";
 
 export const rootReducer = combineReducers<ApplicationState>({
     companyState: companyReducer,
@@ -17,5 +18,6 @@ export const rootReducer = combineReducers<ApplicationState>({
     logupState: logupReducer,
     snackbarState: snackbarReducer,
     identifyState: identifyReducer,
-    resetPassword: resetPasswordReducer,
+    resetPasswordState: resetPasswordReducer,
+    dialogState: dialogReducer,
 })

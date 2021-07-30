@@ -6,6 +6,7 @@ import { SignupState } from './Shared/Signup/SignupState';
 import { SnackbarState } from './Shared/Snackbar/SnackbarState';
 import { IdentifyState } from './Shared/Login/Identify/IdentifyState';
 import { ResetPasswordState } from './Shared/Login/ResetPassword/ResetPasswordState';
+import { DialogState } from './Shared/Dialog/DialogState';
 
 export interface ApplicationState {
     companyState: CompanyState,
@@ -15,5 +16,6 @@ export interface ApplicationState {
     logupState: SignupState,
     snackbarState: SnackbarState,
     identifyState: IdentifyState,
-    resetPassword: ResetPasswordState,
+    resetPasswordState: ResetPasswordState,
+    dialogState: DialogState,
 }
