@@ -35,31 +35,31 @@ const App = (props: Props) => {
     }
   });
 
-  // if (!token) {
-  //   return (
-  //     <>
-  //       <TopNavigationComponent />
-  //       <SnackbarContainer />
-  //       <Switch>
-  //       <Route path="/identify">
-  //           <IdentifyContainer />
-  //         </Route>
-  //         <Route path="/login">
-  //           <LoginContainer />
-  //         </Route>
-  //         <Route path="/resetPassword">
-  //           <ResetPasswordContainer />
-  //         </Route>
-  //         <Route path="/Signup">
-  //           <LogupContainer />
-  //         </Route>
-  //         <Route path="/">
-  //           <div>HOME</div>
-  //         </Route>
-  //       </Switch>
-  //     </>
-  //   )
-  // }
+  if (!token) {
+    return (
+      <>
+        <TopNavigationComponent />
+        <SnackbarContainer />
+        <Switch>
+        <Route path="/identify">
+            <IdentifyContainer />
+          </Route>
+          <Route path="/login">
+            <LoginContainer />
+          </Route>
+          <Route path="/resetPassword">
+            <ResetPasswordContainer />
+          </Route>
+          <Route path="/Signup">
+            <LogupContainer />
+          </Route>
+          <Route path="/">
+            <div>HOME</div>
+          </Route>
+        </Switch>
+      </>
+    )
+  }
 
   return (
     <div className={"main-container"}>
