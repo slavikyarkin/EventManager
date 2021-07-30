@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, IconButton, Typography, Button, makeStyles, createStyles, Theme, fade } from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { getToken } from "../../useToken";
 
 const drawerWidth = 240;
 
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export function TopNavigationComponent() {
   const classes = useStyles();
   const history = useHistory();
+  const token = getToken();
+
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
@@ -41,7 +44,8 @@ export function TopNavigationComponent() {
         </IconButton>
         <Typography variant="h6" color="inherit" className={classes.grow}>
         </Typography>
-           <Button color="inherit" onClick={()=>history.push('/login')}> Login </Button>
+        {!token ? (<Button color="inherit" onClick={()=>history.push('/login')}> Login </Button>) : (<Button color="inherit" onClick={()=> {sessionStorage.clear(); history.push('/login')}}> Logout </Button>)}
+           
        </Toolbar>
     </AppBar> 
   )
