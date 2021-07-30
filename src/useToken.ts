@@ -1,7 +1,7 @@
 import { TokenModel } from './Shared/Login/LoginModel';
 import { useState } from 'react';
 
-export default function getToken() {
+export function getToken() {
  
     const tokenString: string | null = sessionStorage.getItem('token');
 
@@ -15,6 +15,24 @@ export default function getToken() {
     //   return undefined;
     // }
 
-    return model.access_token
+    return model.access_token;
  
+}
+
+export function getEmail() {
+ 
+  const tokenString: string | null = sessionStorage.getItem('token');
+
+  if (!tokenString) {
+    return undefined;
+  }
+
+  const model: TokenModel = JSON.parse(tokenString);
+
+  // if (model.experationDate < new Date()) {
+  //   return undefined;
+  // }
+
+  return model.email;
+
 }

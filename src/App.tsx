@@ -13,7 +13,7 @@ import LoginContainer from './Shared/Login/LoginContainer';
 import { connect } from 'react-redux';
 import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
-import getToken from './useToken';
+import { getToken } from './useToken';
 import LogupContainer from './Shared/Signup/SignupContainer';
 import {SnackbarContainer} from './Shared/Snackbar/SnackbarContainer';
 import IdentifyContainer from './Shared/Login/Identify/IdentifyContainer';
@@ -34,31 +34,31 @@ const App = (props: Props) => {
     }
   });
 
-  if (!token) {
-    return (
-      <>
-        <TopNavigationComponent />
-        <SnackbarContainer />
-        <Switch>
-        <Route path="/identify">
-            <IdentifyContainer />
-          </Route>
-          <Route path="/login">
-            <LoginContainer />
-          </Route>
-          <Route path="/resetPassword">
-            <ResetPasswordContainer />
-          </Route>
-          <Route path="/Signup">
-            <LogupContainer />
-          </Route>
-          <Route path="/">
-            <div>HOME</div>
-          </Route>
-        </Switch>
-      </>
-    )
-  }
+  // if (!token) {
+  //   return (
+  //     <>
+  //       <TopNavigationComponent />
+  //       <SnackbarContainer />
+  //       <Switch>
+  //       <Route path="/identify">
+  //           <IdentifyContainer />
+  //         </Route>
+  //         <Route path="/login">
+  //           <LoginContainer />
+  //         </Route>
+  //         <Route path="/resetPassword">
+  //           <ResetPasswordContainer />
+  //         </Route>
+  //         <Route path="/Signup">
+  //           <LogupContainer />
+  //         </Route>
+  //         <Route path="/">
+  //           <div>HOME</div>
+  //         </Route>
+  //       </Switch>
+  //     </>
+  //   )
+  // }
 
   return (
     <div className={"main-container"}>

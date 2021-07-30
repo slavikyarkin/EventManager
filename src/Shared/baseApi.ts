@@ -1,4 +1,4 @@
-import getToken from "../useToken";
+import { getToken } from "../useToken";
 import { ApiError, BadRequestError, NotFoundRequestError, UnauthorizedError } from "./exceptions";
 
 export function* get<T>(resourceUrl: string) {

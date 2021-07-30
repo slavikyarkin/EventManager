@@ -11,5 +11,5 @@ export interface LoginFormModel {
 
 export interface TokenModel {
     access_token : string;
-    emmail : string;
+    email : string;
 }

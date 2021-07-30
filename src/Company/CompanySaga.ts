@@ -7,6 +7,9 @@ import * as Api from "./CompanyAPI";
 import * as actions from "./CompanyActions";
 import * as mapper from "./CompanyMapper";
 import * as routerActions from "../Shared/Router/routerActions";
+import { BadRequestError } from '../Shared/exceptions';
+import * as snackbarActions from "../Shared/Snackbar/SnackbarActions";
+
 
 export function* companySaga() {
     yield takeLatest(getType(actions.loadCompany), loadCompany);
@@ -30,7 +33,10 @@ function* createCompany(action: ActionType<typeof actions.createCompany>) {
         yield put(routerActions.redirect('/company/' + company.id));
         // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
     } catch (e) {
-        yield put({ type: "company/LOAD_COMPANY_FAILED", message: e.message });
+        yield put(actions.createCompanyFail(e));
+        if (e instanceof BadRequestError) {
+            yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))
+        }
     }
 }
 

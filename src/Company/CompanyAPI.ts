@@ -10,17 +10,22 @@ export const getCompany = (id: number): Promise<CompanyData> => {
         .then(response => response.json());
 };
 
-export const createCompany = (data: CompanyData): Promise<CompanyData> => {
-    return fetch(appSettings.baseApiUrl + `/company`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => response.json());
+// export const createCompany = (data: CompanyData): Promise<CompanyData> => {
+//     return fetch(appSettings.baseApiUrl + `/company`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json;charset=utf-8'
+//         },
+//         body: JSON.stringify(data)
+//     })
+//         .then(response => response.json());
 
-};
+// };
+
+export function* createCompany(data: CompanyData) {
+    const result: CompanyData = yield baseApi.post<CompanyData, CompanyData>(appSettings.baseApiUrl + `/company`, data);
+    return result;
+}
 
 export const editCompany = (id: number, data: CompanyData): Promise<CompanyData> => {
     const token = sessionStorage['authToken'];

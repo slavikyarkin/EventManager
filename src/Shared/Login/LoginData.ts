@@ -5,5 +5,5 @@ export interface LoginData {
 
 export interface TokenData {
     access_token : string;
-    emmail : string;
+    email : string;
 }
