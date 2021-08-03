@@ -10,18 +10,6 @@ export const getCompany = (id: number): Promise<CompanyData> => {
         .then(response => response.json());
 };
 
-// export const createCompany = (data: CompanyData): Promise<CompanyData> => {
-//     return fetch(appSettings.baseApiUrl + `/company`, {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json;charset=utf-8'
-//         },
-//         body: JSON.stringify(data)
-//     })
-//         .then(response => response.json());
-
-// };
-
 export function* createCompany(data: CompanyData) {
     const result: CompanyData = yield baseApi.post<CompanyData, CompanyData>(appSettings.baseApiUrl + `/company`, data);
     return result;
@@ -41,14 +29,10 @@ export const editCompany = (id: number, data: CompanyData): Promise<CompanyData>
     // .then(result => 
 };
 
-export const deleteCompany = (id: number): Promise<CompanyData> => {
-    return fetch(appSettings.baseApiUrl + `/company/${id}`,
-        {
-            method: 'DELETE'
-        }
-    )
-        .then(response => response.json());
-};
+export function* deleteCompany(id: number) {
+    const result: string = yield baseApi.put<undefined, string>(appSettings.baseApiUrl + `/company/MakeCompanyDel/${id}`, undefined);
+    return result;
+}
 
 export function* getAllCompanies() {
 

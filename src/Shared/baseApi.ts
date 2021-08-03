@@ -12,6 +12,11 @@ export function* post<TBody, TRes>(resourceUrl: string, data: TBody) {
     return result;
 };
 
+export function* put<TBody, TRes>(resourceUrl: string, data: TBody) {
+    const result: TRes = (yield fetchBase('PUT', resourceUrl, data));
+    return result;
+};
+
 
 function* fetchBase(method: string, resourceUrl: string, data: any = null, retry?: boolean): any {
     const token = getToken();

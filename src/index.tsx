@@ -12,6 +12,7 @@ import { rootReducer } from './rootReducer';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Router, useHistory } from 'react-router-dom';
 import { rootSaga } from './rootSaga';
+import { ConfirmProvider } from 'material-ui-confirm';
 
 
 
@@ -30,7 +31,9 @@ ReactDOM.render(
     <CssBaseline />
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ConfirmProvider>
+          <App />
+        </ConfirmProvider>
       </BrowserRouter>
     </Provider>
   </ThemeProvider>,

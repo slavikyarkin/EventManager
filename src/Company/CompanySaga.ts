@@ -15,6 +15,7 @@ export function* companySaga() {
     yield takeLatest(getType(actions.loadCompany), loadCompany);
     yield takeEvery(getType(actions.createCompany), createCompany);
     yield takeLatest(getType(actions.loadAll), loadAll);
+    yield takeLatest(getType(actions.deleteCompany), deleteCompany);
 }
 
 function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
@@ -48,5 +49,18 @@ function* loadAll(action: ActionType<typeof actions.loadAll>) {
         yield put(actions.loadAllSuccess(model));
     } catch (e) {
         yield put(actions.loadCompanyFail(e));
+    }
+}
+
+function* deleteCompany(action: ActionType<typeof actions.deleteCompany>) {
+    try {
+        const res: string = yield call(Api.deleteCompany, action.payload)
+        yield put(routerActions.redirect('/'));
+        yield put(snackbarActions.showSnackbar({ message: res, severity: 'success' }))
+    } catch (e) {
+        yield put(actions.deleteCompanyFail(e));
+        if (e instanceof BadRequestError) {
+            yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))
+        }
     }
 }

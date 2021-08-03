@@ -7,9 +7,10 @@ import { isTemplateExpression } from 'typescript';
 import { connect } from 'react-redux';
 
 import * as dialogActions from "../Dialog/DialogActions";
+import * as companyActions from "../../Company/CompanyActions";
 import { ApplicationState } from '../../applicationState';
 import { DialogOpenAction } from '../Dialog/DialogData';
-
+import { useConfirm } from "material-ui-confirm";
 
 interface OwnProps {
 }
@@ -19,6 +20,7 @@ interface StateProps {
 
 interface DispatchProps {
     showDialog: (model: DialogOpenAction) => void;
+    deleteCompany: (id: number) => void;
 }
 
 interface Props extends OwnProps, StateProps, DispatchProps {
@@ -28,21 +30,22 @@ const events = [1, 2, 3, 4, 5, 6];
 
 const MainBodyContainer = (props: Props) => {
     const history = useHistory();
+    const confirm = useConfirm();
+    
 
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) => {
-        e.preventDefault();
-        props.showDialog({content: 'Delete company?'})
-        // if (state.errors.size == 0) {
-        //     setState({ ...state, isLoading: true });
-        //     props.submit(mapToRequestModel(state.formData));
-        // } 
+    const handleClick = () => {
+        let str = window.location.pathname;
+        confirm({description: 'Really delete the company?'})
+            .then(() => props.deleteCompany(+(str[str.length - 1])) );
+            
+        // props.showDialog({content: 'Really delete the company?'})
     }
 
     return (
         <Container maxWidth='md'>
             <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" fullWidth>
                 <Button>Edit company</Button>
-                <Button onClick={(e) => handleClick(e)}>Delete company</Button>
+                <Button onClick={handleClick}>Delete company</Button>
             </ButtonGroup>
             <List>
 
@@ -76,7 +79,8 @@ const mapStateToProps = (state: ApplicationState) => ({
 });
 
 const mapDispatchToProps = {
-    showDialog: dialogActions.openDialog
+    showDialog: dialogActions.openDialog,
+    deleteCompany: companyActions.deleteCompany
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainBodyContainer);

@@ -14,10 +14,10 @@ export const DialogComponent = ({show, content, close} : Props) => {
       <Dialog
         open={show}
         onClose={close}
-        // aria-labelledby="alert-dialog-title"
+        aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        {/* <DialogTitle id="alert-dialog-title">{content}</DialogTitle> */}
+        <DialogTitle id="alert-dialog-title">Are you sure?</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             {content}
