@@ -6,7 +6,7 @@ import CompanyContainer from './Company/CompanyContainer';
 
 import { TopNavigationComponent } from './Shared/TopNavigation/TopNavigationComponent';
 import LeftSidebarComponent from './Shared/LeftSidebar/LeftSidebarComponent';
-import { MainBodyComponent } from './Shared/MainBody/MainBodyComponent';
+import MainBodyContainer from './Shared/MainBody/MainBodyContainer';
 import EventContainer from './Event/EventContainer';
 import CompanyCreateContainer from './Company/CompanyCreateContainer';
 import LoginContainer from './Shared/Login/LoginContainer';
@@ -35,31 +35,32 @@ const App = (props: Props) => {
     }
   });
 
-  if (!token) {
-    return (
-      <>
-        <TopNavigationComponent />
-        <SnackbarContainer />
-        <Switch>
-        <Route path="/identify">
-            <IdentifyContainer />
-          </Route>
-          <Route path="/login">
-            <LoginContainer />
-          </Route>
-          <Route path="/resetPassword">
-            <ResetPasswordContainer />
-          </Route>
-          <Route path="/Signup">
-            <LogupContainer />
-          </Route>
-          <Route path="/">
-            <div>HOME</div>
-          </Route>
-        </Switch>
-      </>
-    )
-  }
+  // if (!token) {
+  //   return (
+  //     <>
+  //       <TopNavigationComponent />
+  //       <SnackbarContainer />
+  //       <DialogContainer />
+  //       <Switch>
+  //       <Route path="/identify">
+  //           <IdentifyContainer />
+  //         </Route>
+  //         <Route path="/login">
+  //           <LoginContainer />
+  //         </Route>
+  //         <Route path="/resetPassword">
+  //           <ResetPasswordContainer />
+  //         </Route>
+  //         <Route path="/Signup">
+  //           <LogupContainer />
+  //         </Route>
+  //         <Route path="/">
+  //           <div>HOME</div>
+  //         </Route>
+  //       </Switch>
+  //     </>
+  //   )
+  // }
 
   return (
     <div className={"main-container"}>
@@ -81,7 +82,7 @@ const App = (props: Props) => {
           <CompanyCreateContainer />
         </Route>
         <Route path="/company/:companyId" component={CompanyContainer} >
-          <MainBodyComponent />
+          <MainBodyContainer />
         </Route>
         <Route path="/">
           <div>HOME</div>

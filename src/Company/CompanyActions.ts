@@ -11,3 +11,11 @@ export const loadCompanyFail = createAction('company/LOAD_COMPANY_FAIL')<Error>(
 export const createCompany = createAction('company/CREATE_COMPANY')<CompanyModel>();
 export const createCompanySuccess = createAction('company/CREATE_COMPANY_SUCCESS')<CompanyModel>();
 export const createCompanyFail = createAction('company/CREATE_COMPANY_FAIL')<Error>();
+
+export const deleteCompany = createAction('company/DELETE_COMPANY')<number>();
+export const deleteCompanySuccess = createAction('company/DELETE_COMPANY_SUCCESS')<CompanyModel>();
+export const deleteCompanyFail = createAction('company/DELETE_COMPANY_FAIL')<Error>();
+
+export const editCompany = createAction('company/EDIT_COMPANY')<CompanyModel>();
+export const editCompanySuccess = createAction('company/EDIT_COMPANY_SUCCESS')<CompanyModel>();
+export const editCompanyFail = createAction('company/EDIT_COMPANY_FAIL')<Error>();
