@@ -18,7 +18,7 @@ function* logIn(action: ActionType<typeof actions.logIn>) {
         const data: TokenData = yield call(Api.postLogin, action.payload);
         const model: TokenModel = { ...data }
 
-        sessionStorage.setItem('token', JSON.stringify(model));
+        localStorage.setItem('token', JSON.stringify(model));
         yield put(actions.logInSuccess(model));
     } catch (e) {
         yield put(actions.logInFail(e));

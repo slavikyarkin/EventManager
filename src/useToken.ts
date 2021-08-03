@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 export function getToken() {
  
-    const tokenString: string | null = sessionStorage.getItem('token');
+    const tokenString: string | null = localStorage.getItem('token');
 
     if (!tokenString) {
       return undefined;
@@ -21,7 +21,7 @@ export function getToken() {
 
 export function getEmail() {
  
-  const tokenString: string | null = sessionStorage.getItem('token');
+  const tokenString: string | null = localStorage.getItem('token');
 
   if (!tokenString) {
     return undefined;
