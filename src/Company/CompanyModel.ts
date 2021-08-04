@@ -6,3 +6,4 @@ export interface CompanyModel {
     type: number;
 }
 
+

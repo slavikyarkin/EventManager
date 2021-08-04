@@ -7,7 +7,11 @@ import { connect } from "react-redux";
 import { companySelector } from "./CompanySelector";
 import * as companyActions from "./CompanyActions";
 import { ComponentState } from "./ComponentState";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
+import { ApplicationState } from "../applicationState";
+import { Button, ButtonGroup, Card, CardActions, CardContent, Container, Grid, List, ListItem, ListItemText, TextField, Typography } from "@material-ui/core";
+import { useConfirm } from "material-ui-confirm";
+import { exit } from "process";
 
 
 interface OwnProps {
@@ -20,13 +24,18 @@ interface StateProps {
 
 interface DispatchProps {
   loadCompany: (id: number) => void;
+  deleteCompany: (id: number) => void;
 }
 
 interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
+const events = [1, 2, 3, 4, 5, 6];
+
 const CompanyContainer: React.FC<Props> = (props: Props) => {
   let { companyId } = useParams<{ companyId: string | undefined }>();
+  const history = useHistory();
+  const confirm = useConfirm();
 
   useEffect(() => {
     if (companyId) {
@@ -34,22 +43,54 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
+  const handleClick = () => {
+    confirm({ description: 'Really delete the company?' })
+      .then(() => props.deleteCompany(props.company?.id!));
+  }
+
   return (
     <>
-      {props.company ? props.company?.name : "No company found"}
+      <Container maxWidth='md'>
+        <div>{props.company?.name}<br />{props.company?.description}</div>
+        <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" fullWidth>
+          <Button onClick={() => history.push('/editcompany/' + props.company?.id)}>Edit company</Button>
+          <Button onClick={handleClick}>Delete company</Button>
+        </ButtonGroup>
+        <List>
+
+          <ListItem button key={'Add event'} >
+            <ListItemText primary={'Add event'} onClick={() => history.push('/event/new')} />
+          </ListItem>
+
+        </List>
+        <Grid container spacing={4}>
+          {events.map((event) => (
+            <Grid item key={event} xs={12}>
+              <Card>
+                <CardContent>
+                  <Typography color="textSecondary" gutterBottom>
+                    Event {event}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" onClick={() => history.push('/event/' + event)}>Learn More</Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
     </>);
 }
 
-const mapStateToProps = (state: ComponentState, ownProps: OwnProps) => ({
-  company: companySelector(state)
+const mapStateToProps = (state: ApplicationState) => ({
+  ...state.companyState
 });
 
-
-const mapDispatchToProps = (dispatch: Dispatch,) => {
-  return bindActionCreators({
-    loadCompany: companyActions.loadCompany
-  }, dispatch);
-};
+const mapDispatchToProps = {
+  loadCompany: companyActions.loadCompany,
+  deleteCompany: companyActions.deleteCompany
+}
 
 const Company = connect(mapStateToProps, mapDispatchToProps)(CompanyContainer);
 

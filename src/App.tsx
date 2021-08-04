@@ -19,6 +19,7 @@ import {SnackbarContainer} from './Shared/Snackbar/SnackbarContainer';
 import IdentifyContainer from './Shared/Login/Identify/IdentifyContainer';
 import ResetPasswordContainer from './Shared/Login/ResetPassword/ResetPasswordContainer';
 import { DialogContainer } from './Shared/Dialog/DialogContainer';
+import CompanyEditContainer from './Company/CompanyEditContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -69,6 +70,7 @@ const App = (props: Props) => {
       <SnackbarContainer />
       <DialogContainer />
       <Switch>
+        <Route path="/editcompany/:companyId" component={CompanyEditContainer} /> 
         <Route path="/events">
           <div>EVENTS</div>
         </Route>
@@ -81,9 +83,9 @@ const App = (props: Props) => {
         <Route path="/company/new">
           <CompanyCreateContainer />
         </Route>
-        <Route path="/company/:companyId" component={CompanyContainer} >
-          <MainBodyContainer />
-        </Route>
+        <Route path="/company/:companyId" component={CompanyContainer} />
+          {/* <MainBodyContainer />
+        </Route> */}
         <Route path="/">
           <div>HOME</div>
         </Route>
@@ -93,15 +95,10 @@ const App = (props: Props) => {
   );
 }
 
-
-
 const mapStateToProps = (state: ApplicationState) => {
   return {
     routerModel: state.routerState.router,
   }
 };
-
-
-
 
 export default withRouter(connect(mapStateToProps)(App));

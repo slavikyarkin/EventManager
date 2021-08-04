@@ -4,9 +4,9 @@ import * as baseApi from "../Shared/baseApi";
 
 declare const appSettings: AppSettings;
 
-export const getCompany = (id: number): Promise<CompanyData> => {
-    return fetch(appSettings.baseApiUrl + `/company/${id}`)
-        .then(response => response.json());
+export function*  getCompany(id: number) {
+    const result: CompanyData = yield baseApi.get(appSettings.baseApiUrl + `/company/${id}`);
+    return result;
 };
 
 export function* createCompany(data: CompanyData) {
