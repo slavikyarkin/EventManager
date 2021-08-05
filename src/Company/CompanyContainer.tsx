@@ -42,7 +42,7 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
     if (companyId) {
       props.loadCompany(Number(companyId));
     }
-  }, []);
+  }, [companyId]);
 
   useEffect(() => {
     if (window.location.search != "") {
