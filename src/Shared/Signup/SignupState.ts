@@ -1,4 +1,4 @@
-import { SignupModel } from "./SignupModel";
+import { SignupFormModel } from "./SignupModel";
 
 export interface SignupState {
 }

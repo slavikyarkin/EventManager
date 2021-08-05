@@ -23,3 +23,7 @@ export const editCompanyFail = createAction('company/EDIT_COMPANY_FAIL')<Error>(
 export const inviteCompany = createAction('company/INVITE_COMPANY')<CompanyInviteModel>();
 export const inviteCompanySuccess = createAction('company/INVITE_COMPANY_SUCCESS')<CompanyInviteModel>();
 export const inviteCompanyFail = createAction('company/INVITE_COMPANY_FAIL')<Error>();
+
+export const inviteAcceptCompany = createAction('company/INVITE_ACCEPT_COMPANY')<CompanyInviteModel>();
+export const inviteAcceptCompanySuccess = createAction('company/INVITE_ACCEPT_COMPANY_SUCCESS')<CompanyInviteModel>();
+export const inviteAcceptCompanyFail = createAction('company/INVITE_ACCEPT_COMPANY_FAIL')<Error>();

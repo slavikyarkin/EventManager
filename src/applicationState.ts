@@ -13,7 +13,7 @@ export interface ApplicationState {
     eventState: EventState,
     routerState: RouterState,
     loginState: LoginState,
-    logupState: SignupState,
+    singupState: SignupState,
     snackbarState: SnackbarState,
     identifyState: IdentifyState,
     resetPasswordState: ResetPasswordState,

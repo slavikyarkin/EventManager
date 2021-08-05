@@ -33,3 +33,8 @@ export function* inviteCompany(data: CompanyInviteData) {
     const result: string = yield baseApi.post<CompanyInviteData, string>(appSettings.baseApiUrl + `/company/sendInviteEmail`, data);
     return result;
 }
+
+export function* inviteAcceptCompany(data: CompanyInviteData) {
+    const result: string = yield baseApi.post<CompanyInviteData, string>(appSettings.baseApiUrl + `/company/acceptInvitation`, data);
+    return result;
+}

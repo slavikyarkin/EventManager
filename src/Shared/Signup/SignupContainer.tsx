@@ -43,7 +43,7 @@ const SignupContainer = (props: Props) => {
         if (state.errors.size == 0) {
             setState({ ...state, isLoading: true });
             props.submit(mapToRequestModel(state.formData));
-        } 
+        }
     }
 
     const setModel = (model: SignupModel) => {
@@ -159,17 +159,13 @@ const SignupContainer = (props: Props) => {
     );
 }
 
-const mapStateToProps = (state: ApplicationState) => {
-    return {
-        routerModel: state.routerState.router,
-    }
-};
+const mapStateToProps = (state: ApplicationState) => ({
+    ...state.singupState
+});
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return bindActionCreators({
-        submit: actions.signUp
-    }, dispatch);
-};
+const mapDispatchToProps = {
+    submit: actions.signUp
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignupContainer);
 

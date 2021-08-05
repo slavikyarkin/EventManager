@@ -14,8 +14,6 @@ import { BrowserRouter, Router, useHistory } from 'react-router-dom';
 import { rootSaga } from './rootSaga';
 import { ConfirmProvider } from 'material-ui-confirm';
 
-
-
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(

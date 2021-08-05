@@ -19,6 +19,7 @@ export function* companySaga() {
     yield takeLatest(getType(actions.deleteCompany), deleteCompany);
     yield takeLatest(getType(actions.editCompany), editCompany);
     yield takeLatest(getType(actions.inviteCompany), inviteCompany);
+    yield takeLatest(getType(actions.inviteAcceptCompany), inviteAcceptCompany);
 }
 
 function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
@@ -94,3 +95,18 @@ function* inviteCompany(action: ActionType<typeof actions.inviteCompany>) {
         }
     }
 }
+
+function* inviteAcceptCompany(action: ActionType<typeof actions.inviteAcceptCompany>) {
+    try {
+        const response: string = yield call(Api.inviteAcceptCompany, action.payload)
+        yield put(routerActions.redirect('/company/' + action.payload.companyId));
+        // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
+        yield put(snackbarActions.showSnackbar({ message: response, severity: 'success' }))
+    } catch (e) {
+        yield put(actions.editCompanyFail(e));
+        if (e instanceof BadRequestError) {
+            yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))
+        }
+    }
+}
+

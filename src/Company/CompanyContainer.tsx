@@ -1,7 +1,7 @@
 
 import React, { useEffect } from "react";
 import { bindActionCreators, Dispatch } from "redux";
-import { CompanyModel } from "./CompanyModel";
+import { CompanyInviteModel, CompanyModel } from "./CompanyModel";
 import { CompanyState } from "./CompanyState";
 import { connect } from "react-redux";
 import { companySelector } from "./CompanySelector";
@@ -25,6 +25,7 @@ interface StateProps {
 interface DispatchProps {
   loadCompany: (id: number) => void;
   deleteCompany: (id: number) => void;
+  inviteAccept: (invite: CompanyInviteModel) => void;
 }
 
 interface Props extends OwnProps, StateProps, DispatchProps {
@@ -40,6 +41,13 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
   useEffect(() => {
     if (companyId) {
       props.loadCompany(Number(companyId));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window.location.search != "") {
+      let params = new URLSearchParams(window.location.search)
+      props.inviteAccept({companyId: +(params.get("ObjectId")!), email: params.get("email")! })
     }
   }, []);
 
@@ -90,7 +98,8 @@ const mapStateToProps = (state: ApplicationState) => ({
 
 const mapDispatchToProps = {
   loadCompany: companyActions.loadCompany,
-  deleteCompany: companyActions.deleteCompany
+  deleteCompany: companyActions.deleteCompany,
+  inviteAccept: companyActions.inviteAcceptCompany,
 }
 
 const Company = connect(mapStateToProps, mapDispatchToProps)(CompanyContainer);

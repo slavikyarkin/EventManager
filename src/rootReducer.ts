@@ -4,7 +4,7 @@ import { companyReducer } from "./Company/CompanyReducer";
 import { eventReducer } from "./Event/EventReducer";
 import { routerReducer } from "./Shared/Router/routerReducer";
 import { loginReducer } from './Shared/Login/LoginReducer';
-import { logupReducer } from "./Shared/Signup/SignupReducer";
+import { singupReducer } from "./Shared/Signup/SignupReducer";
 import { snackbarReducer } from "./Shared/Snackbar/SnackbarReducer";
 import { identifyReducer } from "./Shared/Login/Identify/IdentifyReducer";
 import { resetPasswordReducer } from "./Shared/Login/ResetPassword/ResetPasswordReducer";
@@ -15,7 +15,7 @@ export const rootReducer = combineReducers<ApplicationState>({
     eventState: eventReducer,
     routerState: routerReducer,
     loginState: loginReducer,
-    logupState: logupReducer,
+    singupState: singupReducer,
     snackbarState: snackbarReducer,
     identifyState: identifyReducer,
     resetPasswordState: resetPasswordReducer,
