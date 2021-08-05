@@ -1,5 +1,5 @@
 import { createAction } from "typesafe-actions";
-import { CompanyModel } from "./CompanyModel";
+import { CompanyInviteModel, CompanyModel } from "./CompanyModel";
 
 export const loadAll = createAction('company/LOAD_ALL')();
 export const loadAllSuccess = createAction('company/LOAD_ALL_SUCCESS')<CompanyModel[]>();
@@ -19,3 +19,7 @@ export const deleteCompanyFail = createAction('company/DELETE_COMPANY_FAIL')<Err
 export const editCompany = createAction('company/EDIT_COMPANY')<CompanyModel>();
 export const editCompanySuccess = createAction('company/EDIT_COMPANY_SUCCESS')<CompanyModel>();
 export const editCompanyFail = createAction('company/EDIT_COMPANY_FAIL')<Error>();
+
+export const inviteCompany = createAction('company/INVITE_COMPANY')<CompanyInviteModel>();
+export const inviteCompanySuccess = createAction('company/INVITE_COMPANY_SUCCESS')<CompanyInviteModel>();
+export const inviteCompanyFail = createAction('company/INVITE_COMPANY_FAIL')<Error>();

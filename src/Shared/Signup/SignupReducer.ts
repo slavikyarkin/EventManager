@@ -9,6 +9,12 @@ const initialState: SignupState = {
 
 export function logupReducer(state: SignupState = initialState, action: SignupAction): SignupState {
   switch (action.type) {
+    case (getType(SignupActions.signUpSuccess)):
+      return {
+        ...state,
+        company: action.payload
+        
+      };
     default:
       return {
         ...state

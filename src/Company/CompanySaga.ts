@@ -18,6 +18,7 @@ export function* companySaga() {
     yield takeLatest(getType(actions.loadAll), loadAll);
     yield takeLatest(getType(actions.deleteCompany), deleteCompany);
     yield takeLatest(getType(actions.editCompany), editCompany);
+    yield takeLatest(getType(actions.inviteCompany), inviteCompany);
 }
 
 function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
@@ -72,6 +73,20 @@ function* editCompany(action: ActionType<typeof actions.editCompany>) {
         const company: CompanyData = yield call(Api.editCompany, action.payload)
         yield put(routerActions.redirect('/company/' + company.id));
         // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
+    } catch (e) {
+        yield put(actions.editCompanyFail(e));
+        if (e instanceof BadRequestError) {
+            yield put(snackbarActions.showSnackbar({ message: e.message, severity: 'error' }))
+        }
+    }
+}
+
+function* inviteCompany(action: ActionType<typeof actions.inviteCompany>) {
+    try {
+        const response: string = yield call(Api.inviteCompany, action.payload)
+        yield put(routerActions.redirect('/company/' + action.payload.companyId));
+        // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
+        yield put(snackbarActions.showSnackbar({ message: response, severity: 'success' }))
     } catch (e) {
         yield put(actions.editCompanyFail(e));
         if (e instanceof BadRequestError) {

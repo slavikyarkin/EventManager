@@ -6,4 +6,9 @@ export interface CompanyModel {
     type: number;
 }
 
+export interface CompanyInviteModel {
+    companyId: number;
+    email: string;
+}
+
 

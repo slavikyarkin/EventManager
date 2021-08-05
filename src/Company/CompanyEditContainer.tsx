@@ -38,7 +38,6 @@ const CompanyEditContainer = (props: Props) => {
         if (companyId) {
             props.loadCompany(Number(companyId));
         }
-        
     }, []);
 
     // const [companyState, setCompany] = useState(props.company!);

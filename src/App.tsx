@@ -20,6 +20,7 @@ import IdentifyContainer from './Shared/Login/Identify/IdentifyContainer';
 import ResetPasswordContainer from './Shared/Login/ResetPassword/ResetPasswordContainer';
 import { DialogContainer } from './Shared/Dialog/DialogContainer';
 import CompanyEditContainer from './Company/CompanyEditContainer';
+import CompanyInviteContainer from './Company/CompanyInviteContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -86,6 +87,7 @@ const App = (props: Props) => {
         <Route path="/company/:companyId" component={CompanyContainer} />
           {/* <MainBodyContainer />
         </Route> */}
+        <Route path="/invitecompany/:companyId" component={CompanyInviteContainer} />
         <Route path="/">
           <div>HOME</div>
         </Route>

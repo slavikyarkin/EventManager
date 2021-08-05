@@ -1,4 +1,4 @@
-import { CompanyData } from './CompanyData';
+import { CompanyData, CompanyInviteData } from './CompanyData';
 import { AppSettings } from "../AppSettings";
 import * as baseApi from "../Shared/baseApi";
 
@@ -26,5 +26,10 @@ export function* deleteCompany(id: number) {
 
 export function* getAllCompanies() {
     const result: CompanyData[] = yield baseApi.get(appSettings.baseApiUrl + `/company/all`);
+    return result;
+}
+
+export function* inviteCompany(data: CompanyInviteData) {
+    const result: string = yield baseApi.post<CompanyInviteData, string>(appSettings.baseApiUrl + `/company/sendInviteEmail`, data);
     return result;
 }

@@ -5,3 +5,8 @@ export interface CompanyData {
     description: string;
     type: number;
 }
+
+export interface CompanyInviteData {
+    companyId: number;
+    email: string;
+}

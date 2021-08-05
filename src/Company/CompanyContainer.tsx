@@ -51,9 +51,10 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
   return (
     <>
       <Container maxWidth='md'>
-        <div>{props.company?.name}<br />{props.company?.description}</div>
+        <div><h1>{props.company?.name}</h1><h2>{props.company?.description}</h2></div>
         <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" fullWidth>
           <Button onClick={() => history.push('/editcompany/' + props.company?.id)}>Edit company</Button>
+          <Button onClick={() => history.push('/invitecompany/' + props.company?.id)}>Invite New User</Button>
           <Button onClick={handleClick}>Delete company</Button>
         </ButtonGroup>
         <List>
