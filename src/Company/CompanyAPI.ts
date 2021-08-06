@@ -15,7 +15,7 @@ export function* createCompany(data: CompanyData) {
 }
 
 export function* editCompany(data: CompanyData) {
-    const result: CompanyData = yield baseApi.put<CompanyData, CompanyData>(appSettings.baseApiUrl + `/company/Update?${data.id}`, data);
+    const result: CompanyData = yield baseApi.put<CompanyData, CompanyData>(appSettings.baseApiUrl + `/company/Update?id=${data.id}`, data);
     return result;
 }
 

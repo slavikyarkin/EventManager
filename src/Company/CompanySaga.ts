@@ -73,7 +73,8 @@ function* editCompany(action: ActionType<typeof actions.editCompany>) {
     try {
         const company: CompanyData = yield call(Api.editCompany, action.payload)
         yield put(routerActions.redirect('/company/' + company.id));
-        // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});
+        yield put(snackbarActions.showSnackbar({ message: 'THE COMPANY INFO WAS SUCCESSFULLY CHANGED', severity: 'success' }))
+        // yield put({type: "company/LOAD_COMPANY_SUCCEEDED", company: company});  
     } catch (e) {
         yield put(actions.editCompanyFail(e));
         if (e instanceof BadRequestError) {

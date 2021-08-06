@@ -7,6 +7,7 @@ import { SignupData, UserData } from './SignupData';
 import * as errorActions from "../ErrorMessages/errorActions";
 import * as snackbarActions from "../Snackbar/SnackbarActions";
 import { BadRequestError } from '../exceptions';
+import * as routerActions from "../Router/routerActions";
 
 
 export function* logupSaga() {
@@ -18,6 +19,7 @@ function* signUp(action: ActionType<typeof actions.signUp>) {
         const data: UserData = yield call(Api.postSignup, action.payload);
         const model: UserModel = { ...data }
 
+        yield put(routerActions.redirect('/login'));
         yield put(actions.signUpSuccess(model));
         yield put(snackbarActions.showSnackbar({message: 'Your registration was submitted successfully.', severity: 'success'}))
     } catch (e) {
