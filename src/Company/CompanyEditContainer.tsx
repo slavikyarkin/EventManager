@@ -13,6 +13,13 @@ import { getEmail } from '../useToken';
 import { useParams } from 'react-router-dom';
 
 
+const initialState: CompanyModel = {
+    id: 0,
+    name: '',
+    email: '',
+    description: '',
+    type: 1,
+}
 
 interface OwnProps {
 }
@@ -31,7 +38,8 @@ interface Props extends OwnProps, StateProps, DispatchProps {
 
 const CompanyEditContainer = (props: Props) => {
     let { companyId } = useParams<{ companyId: string | undefined }>();
-    const [companyState, setCompany] = useState({ name: '', email: getEmail(), description: '', type: 0 });
+    // const [companyState, setCompany] = useState({ id: 0, name: '', email: '', description: '', type: 0 });
+    const [companyState, setCompany] = React.useState<CompanyModel>(initialState);
     
 
     useEffect(() => {
@@ -40,21 +48,26 @@ const CompanyEditContainer = (props: Props) => {
         }
     }, []);
 
+    useEffect(() => {
+        setCompany(props.company!)
+    }, [props.company]);
+
     // const [companyState, setCompany] = useState(props.company!);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        props.edit(props.company!);
+        props.edit({id: companyState.id, name: companyState.name, description: companyState.description, type: companyState.type});
     }
 
     return (
-        <form id="form" className={"login-wrapper"} onSubmit={e => handleSubmit(e)}>
+        <form id="form" onSubmit={e => handleSubmit(e)}>
             <h2>Edit company</h2>
             <TextField
                 id="outlined-basic"
                 label="Name company"
                 variant="outlined"
                 onChange={e => setCompany({ ...companyState, name: e.target.value })}
+                value={companyState.name}
             />
             <br />
             <TextField
@@ -63,9 +76,10 @@ const CompanyEditContainer = (props: Props) => {
                 fullWidth
                 variant="outlined"
                 onChange={e => setCompany({ ...companyState, description: e.target.value })}
+                value={companyState.description}
             />
             <br />
-            <RadioGroup aria-label="Company status" name="Company status" onChange={e => setCompany({ ...companyState, type: +(e.target.value) })}>
+            <RadioGroup value={(companyState.type).toString()} aria-label="Company status" name="Company status" onChange={e => setCompany({ ...companyState, type: +(e.target.value) })}>
                 <FormControlLabel value="1" control={<Radio />} label="Public" />
                 <FormControlLabel value="2" control={<Radio />} label="Private" />
             </RadioGroup>
