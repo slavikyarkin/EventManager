@@ -68,7 +68,7 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
         <List>
 
           <ListItem button key={'Add event'} >
-            <ListItemText primary={'Add event'} onClick={() => history.push('/event/new')} />
+            <ListItemText primary={'Add event'} onClick={() => history.push('/company/event/new')} />
           </ListItem>
 
         </List>

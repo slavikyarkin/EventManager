@@ -8,12 +8,24 @@ import { EventData } from './EventData';
 
 export function* eventSaga() {
     yield takeLatest(getType(actions.loadEvent), loadEvent);
+    yield takeLatest(getType(actions.editEvent), editEvent);
 }
 
 function* loadEvent(action: ActionType<typeof actions.loadEvent>) {
     try {
         const data: EventData = yield call(Api.getEvent, action.payload);
         const model: EventModel = mapper.mapToModel(data);
+        yield put(actions.loadEventSuccess(model));
+    } catch (e) {
+        yield put(actions.loadEventFail(e));
+    }
+}
+
+function* editEvent(action: ActionType<typeof actions.editEvent>) {
+    try {
+        const data: EventData = yield call(Api.createEvent, action.payload);
+        const model: EventModel = mapper.mapToModel(data);
+        
         yield put(actions.loadEventSuccess(model));
     } catch (e) {
         yield put(actions.loadEventFail(e));

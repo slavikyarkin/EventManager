@@ -21,6 +21,7 @@ import ResetPasswordContainer from './Shared/Login/ResetPassword/ResetPasswordCo
 import { DialogContainer } from './Shared/Dialog/DialogContainer';
 import CompanyEditContainer from './Company/CompanyEditContainer';
 import CompanyInviteContainer from './Company/CompanyInviteContainer';
+import EventCreateContainer from './Event/EventCreateContainer';
 
 
 interface Props extends RouteComponentProps {
@@ -75,8 +76,9 @@ const App = (props: Props) => {
         <Route path="/events">
           <div>EVENTS</div>
         </Route>
+        {/* <Route path="company/:companyId/event/new" component={EventCreateContainer} /> */}
         <Route path="/event/new">
-          <div>Create new event</div>
+          <EventCreateContainer />
         </Route>
         <Route path="/event/:eventId" component={EventContainer}>
           <div>SHOW EVENT</div>

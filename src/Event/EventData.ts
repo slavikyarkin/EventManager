@@ -1,9 +1,10 @@
 export interface EventData {
-    id : number;
-    name : string;
-    createDt : Date;
-    holdingDt : Date;
-    typeId : number;
-    userId : number;
-    description : string;
+    id?: number;
+    name: string;
+    createDate: Date;
+    holdingDate: string;
+    type: number;
+    email: string;
+    description: string;
+    companyId?: number;
 }
