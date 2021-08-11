@@ -48,7 +48,7 @@ const App = (props: Props) => {
         <Route path="/identify">
             <IdentifyContainer />
           </Route>
-          <Route path="/login">
+          <Route path="/signin">
             <LoginContainer />
           </Route>
           <Route path="/resetPassword">

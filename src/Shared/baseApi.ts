@@ -6,7 +6,6 @@ export function* get<T>(resourceUrl: string) {
     return result;
 };
 
-
 export function* post<TBody, TRes>(resourceUrl: string, data: TBody) {
     const result: TRes = (yield fetchBase('POST', resourceUrl, data));
     return result;
