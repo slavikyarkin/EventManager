@@ -22,6 +22,7 @@ import { DialogContainer } from './Shared/Dialog/DialogContainer';
 import CompanyEditContainer from './Company/CompanyEditContainer';
 import CompanyInviteContainer from './Company/CompanyInviteContainer';
 import EventCreateContainer from './Event/EventCreateContainer';
+import Home from './Shared/Home/HomeComponent';
 
 
 interface Props extends RouteComponentProps {
@@ -58,7 +59,7 @@ const App = (props: Props) => {
             <LogupContainer />
           </Route>
           <Route path="/">
-            <div>HOME</div>
+          <Home />
           </Route>
         </Switch>
       </>

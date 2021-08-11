@@ -1,17 +1,25 @@
 import React from 'react';
-import Button from '@material-ui/core/Button';
-import { Avatar, Box, Container, CssBaseline, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
-import { ApplicationState } from '../../applicationState';
-import { bindActionCreators, Dispatch } from 'redux';
-import * as actions from "./SignupActions";
-import { connect } from 'react-redux';
-import { SignupFormModel, SignupModel, SignupRequestModel } from './SignupModel';
-import { KeyboardDatePicker } from '@material-ui/pickers';
-import { mapToRequestModel } from './SignupMapper';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Copyright from '../Copyright/CopyrightComponent';
-import { Link } from "react-router-dom";
 
+import { ApplicationState } from '../../applicationState';
+import * as actions from "./SignupActions";
+import { SignupFormModel, SignupModel, SignupRequestModel } from './SignupModel';
+import { mapToRequestModel } from './SignupMapper';
+import Copyright from '../Copyright/CopyrightComponent';
+
+import {
+    Avatar,
+    Box,
+    Container,
+    CssBaseline,
+    Grid,
+    makeStyles,
+    TextField,
+    Typography,
+    Button
+} from '@material-ui/core';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { connect } from 'react-redux';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -72,7 +80,14 @@ const SignupContainer = (props: Props) => {
     }
 
     const setModel = (model: SignupModel) => {
-        const errors = validateModel(model);
+        setState({
+            ...state,
+            formData: model,
+        });
+    }
+
+    const setModelPassword = (model: SignupModel) => {
+        const errors = validatePassword(model);
 
         setState({
             ...state,
@@ -81,58 +96,38 @@ const SignupContainer = (props: Props) => {
         });
     }
 
-    const validateEmail = (email: string): boolean => {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
-
-    const validePassword = (password: string): boolean => {
-        const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        return re.test(password);
-    }
-
-    const validateModel = (model: SignupModel): Map<string, string> => {
+    const validatePassword = (model: SignupModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
-        if (model.firstName == '') {
-            errors.set('First Name', 'First Name is required')
-        }
-        if (model.lastName == '') {
-            errors.set('Last Name', 'Last Name is required')
-        }
-        if (model.email == '') {
-            errors.set('Email', 'Email is required');
-        } else if (!validateEmail(model.email)) {
-            errors.set('Email', 'Email is invalid');
-        }
-        if (model.password == '') {
-            errors.set('Password', 'Password is required')
-        }
-
-        if (model.password.length < 8) {
-            errors.set('Password', 'Password is required')
-        }
-
-        if (model.password == model.password.toUpperCase()) {
-            errors.set('Password', 'Lower case letters (a-z)')
-        }
-
-        if (model.password == model.password.toLowerCase()) {
-            errors.set('Password', 'Upper case letters (A-Z)')
-        }
-
-        if (!validePassword(model.password)) {
-            errors.set('Password', 'At least 8 symbols; 1 uppercase letter; 1 number')
-        }
+        const reNumber = /(?=.*[0-9])/;
+        const reUpper = /(?=.*[A-Z])/;
+        const reLower = /(?=.*[a-z])/;
+        const reCount = /[0-9a-zA-Z]{8,}/;
 
         if (model.repeatPassword == '') {
-            errors.set('Repeat Password', 'Password is required')
+            errors.set('repeatpassword', 'Password is required')
         }
 
         if (model.password !== '' && model.repeatPassword !== '') {
             if (model.password !== model.repeatPassword) {
-                errors.set('Password', 'Password mismatch')
-                errors.set('Repeat Password', 'Password mismatch')
+                errors.set('password', 'Password mismatch')
+                errors.set('repeatpassword', 'Password mismatch')
             }
+        }
+
+        if (!reNumber.test(model.password)) {
+            errors.set('password', '1 number')
+        }
+
+        if (!reLower.test(model.password)) {
+            errors.set('password', '1 lowercase letter')
+        }
+
+        if (!reUpper.test(model.password)) {
+            errors.set('password', '1 uppercase letter')
+        }
+
+        if (!reCount.test(model.password)) {
+            errors.set('password', 'At least 8 symbols')
         }
 
         return errors;
@@ -221,9 +216,9 @@ const SignupContainer = (props: Props) => {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                onChange={(e) => setModel({ ...state.formData, password: e.currentTarget.value })}
-                            // error={state.errors.has('Password')}
-                            // helperText={state.errors.get('Password')}
+                                onChange={(e) => setModelPassword({ ...state.formData, password: e.currentTarget.value })}
+                                error={state.errors.has('password')}
+                                helperText={state.errors.get('password')}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -236,9 +231,9 @@ const SignupContainer = (props: Props) => {
                                 type="password"
                                 id="repeatpassword"
                                 autoComplete="current-password"
-                                onChange={(e) => setModel({ ...state.formData, repeatPassword: e.currentTarget.value })}
-                            // error={state.errors.has('Repeat Password')}
-                            // helperText={state.errors.get('Repeat Password')}
+                                onChange={(e) => setModelPassword({ ...state.formData, repeatPassword: e.currentTarget.value })}
+                                error={state.errors.has('repeatpassword')}
+                                helperText={state.errors.get('repeatpassword')}
                             />
                         </Grid>
                     </Grid>
