@@ -44,8 +44,7 @@ export function TopNavigationComponent() {
         </IconButton>
         <Typography variant="h6" color="inherit" className={classes.grow}>
         </Typography>
-        {!token ? (<Button color="inherit" onClick={()=>history.push('/login')}> Login </Button>) : (<Button color="inherit" onClick={()=> {localStorage.clear(); history.push('/login')}}> Logout </Button>)}
-           
+        {!token ? (<Button color="inherit" onClick={()=>history.push('/signin')}> Sign In </Button>) : (<Button color="inherit" onClick={()=> {localStorage.clear(); history.push('/login')}}> Sign out </Button>)}
        </Toolbar>
     </AppBar> 
   )
