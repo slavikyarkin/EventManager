@@ -1,14 +1,37 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import './Identify.scss';
-import { Grid, Link, TextField } from '@material-ui/core';
+import { Avatar, Box, Container, CssBaseline, Grid, Link, makeStyles, TextField, Typography } from '@material-ui/core';
 import { IdentifyFormModel, IdentifyModel } from './IdentifyModel';
-import PropTypes from 'prop-types';
 import { ApplicationState } from '../../../applicationState';
 import { bindActionCreators, Dispatch } from 'redux';
 import * as actions from "./IdentifyActions";
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { connect, useDispatch } from 'react-redux';
+import SearchIcon from '@material-ui/icons/Search';
+import Copyright from '../../Copyright/CopyrightComponent';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 1),
+    },
+    social: {
+        margin: theme.spacing(1, 0, 1),
+    },
+}));
 
 const initialState: IdentifyFormModel = {
     formData: {
@@ -32,67 +55,63 @@ interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
 const IdentifyContainer = (props: Props) => {
+    const classes = useStyles();
     const [state, setState] = React.useState<IdentifyFormModel>(initialState);
-
+useDispatch()
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (state.errors.size == 0) {
-            setState({ ...state, isLoading: true });
+            setState({ ...state, isLoading: false });
             props.submit(state.formData);
-        } 
+        }
     }
 
     const setModel = (model: IdentifyModel) => {
-        const errors = validateModel(model);
-
         setState({
             ...state,
             formData: model,
-            errors: errors,
         });
     }
 
-    const validateEmail = (email: string): boolean => {
-        const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-    }
-
-    const validateModel = (model: IdentifyModel): Map<string, string> => {
-        let errors: Map<string, string> = new Map;
-        if (model.email == '') {
-            errors.set('Email', 'Email is required');
-        } else if (!validateEmail(model.email)) {
-            errors.set('Email', 'Email is invalid');
-        }
-
-        return errors;
-    }
-
-    const history = useHistory();
-    const { formData, isLoading } = state;
     return (
-        <form className={"identify-wrapper"} onSubmit={e => handleSubmit(e)}>
-            <h2>Email</h2>
-            <TextField required
-                error={state.errors.has('Email')}
-                onChange={(e) => setModel({ ...state.formData, email: e.currentTarget.value })}
-                id="email"
-                label="Email"
-                type="email"
-                helperText={state.errors.get('Email')}
-            />
-            <br />
-            <Grid item xs={12}>
-                <Button
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                    disabled={isLoading}
-                >
-                    Submit
-                </Button>
-            </Grid>
-        </form>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <SearchIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Please enter your email address
+                </Typography>
+                <form className={classes.form} onSubmit={e => handleSubmit(e)}>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        type="email"
+                        autoFocus
+                        onChange={(e) => setModel({ ...state, email: e.currentTarget.value })}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        Submit
+                    </Button>
+                </form>
+            </div>
+            <Box mt={8}>
+                <Copyright />
+            </Box>
+        </Container >
     );
 }
 
