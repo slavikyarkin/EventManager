@@ -11,3 +11,7 @@ export interface TokenData {
 export interface LoginGoogleData {
     idToken: string;  
 }
+
+export interface LoginFacebookData {
+    idToken: string;  
+}

@@ -27,6 +27,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import LoginGoogle from '../GoogleLogin/GoogleLoginComponent';
 import { useGoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+import LoginFacebook from '../FacebookLogin/FacebookLoginComponent';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -85,6 +86,10 @@ const LoginContainer = (props: Props) => {
             props.load(window.location.search);
         }
     });
+
+    const onCklickFacebook = async () => {
+    
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -146,16 +151,8 @@ const LoginContainer = (props: Props) => {
                     {/* <Typography align="center" component="h2" variant="h6">
                         OR
                     </Typography> */}
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.social}
-                        // startIcon={<FacebookIcon />}
-                    >
-                        Continue with Facebook
-                    </Button>
                     <LoginGoogle />
+                    <LoginFacebook />
                 </form>
             </div>
             <Box mt={8}>

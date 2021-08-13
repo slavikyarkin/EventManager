@@ -1,5 +1,5 @@
 import { AppSettings } from "../../AppSettings";
-import { LoginData, LoginGoogleData, TokenData } from "./LoginData";
+import { LoginData, LoginFacebookData, LoginGoogleData, TokenData } from "./LoginData";
 import * as baseApi from "../baseApi";
 
 declare const appSettings: AppSettings;
@@ -16,5 +16,10 @@ export function* postValidateUser(params: string) {
 
 export function* postLoginGoogle(data: LoginGoogleData) {
     const result: TokenData = yield baseApi.post<LoginGoogleData, TokenData>(appSettings.baseApiUrl + `/authenticate/google-login`, data);
+    return result;
+}
+
+export function* postLoginFacebook(data: LoginFacebookData) {
+    const result: TokenData = yield baseApi.post<LoginFacebookData, TokenData>(appSettings.baseApiUrl + `/authenticate/facebook-login`, data);
     return result;
 }

@@ -23,8 +23,8 @@ function LoginGoogle() {
   const dispatch = useDispatch()
 
   const onSuccess = (res) => {
-    console.log('Login Success: currentUser:', res.profileObj);
-    console.log(res.tokenObj.id_token);
+    // console.log('Login Success: currentUser:', res.profileObj);
+    // console.log(res.tokenObj.id_token);
     dispatch(actions.logInGoogle(res.tokenObj.id_token));
   };
 
