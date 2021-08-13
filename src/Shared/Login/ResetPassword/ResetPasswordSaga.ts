@@ -5,7 +5,7 @@ import * as actions from "./ResetPasswordActions"
 
 import * as errorActions from "../../ErrorMessages/errorActions";
 import * as snackbarActions from "../../Snackbar/SnackbarActions";
-
+import * as routerActions from "../../Router/routerActions";
 import { BadRequestError } from '../../exceptions';
 
 export function* resetPasswordSaga() {
@@ -15,7 +15,7 @@ export function* resetPasswordSaga() {
 function* resetPassword(action: ActionType<typeof actions.resetPassword>) {
     try {
         const data: string = yield call(Api.postResetPassword, action.payload);
-
+        yield put(routerActions.redirect('/signin'));
         yield put(snackbarActions.showSnackbar({message: data, severity: 'success'}))
     } catch (e) {
         yield put(actions.resetPasswordFail(e));

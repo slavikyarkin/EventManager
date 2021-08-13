@@ -19,7 +19,7 @@ function* signUp(action: ActionType<typeof actions.signUp>) {
         const data: UserData = yield call(Api.postSignup, action.payload);
         const model: UserModel = { ...data }
 
-        yield put(routerActions.redirect('/login'));
+        yield put(routerActions.redirect('/signin'));
         yield put(actions.signUpSuccess(model));
         yield put(snackbarActions.showSnackbar({message: 'Your registration was submitted successfully.', severity: 'success'}))
     } catch (e) {

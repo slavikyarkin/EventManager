@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import './ResetPassword.scss';
-import { Grid, TextField } from '@material-ui/core';
+import { Avatar, Box, Container, CssBaseline, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
 import { ResetPasswordModel, ResetPasswordRequestModel, ResetPasswordFormModel } from './ResetPasswordModel';
 import PropTypes from 'prop-types';
 import { ApplicationState } from '../../../applicationState';
@@ -9,6 +9,32 @@ import { bindActionCreators, Dispatch } from 'redux';
 import * as actions from "./ResetPasswordActions";
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import SaveIcon from '@material-ui/icons/Save';
+import Copyright from '../../Copyright/CopyrightComponent';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(1),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 1),
+    },
+    social: {
+        margin: theme.spacing(1, 0, 1),
+    },
+}));
+
 
 const initialState: ResetPasswordFormModel = {
     formData: {
@@ -33,12 +59,13 @@ interface Props extends OwnProps, StateProps, DispatchProps {
 }
 
 const ResetPasswordContainer = (props: Props) => {
+    const classes = useStyles();
     const [state, setState] = React.useState<ResetPasswordFormModel>(initialState);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (state.errors.size == 0) {
-            setState({ ...state, isLoading: true });
+            setState({ ...state, isLoading: false });
             let params = new URLSearchParams(window.location.search);
 
             let req: ResetPasswordRequestModel = {
@@ -49,7 +76,7 @@ const ResetPasswordContainer = (props: Props) => {
             }
 
             props.submit(req);
-        } 
+        }
     }
 
     const setModel = (model: ResetPasswordModel) => {
@@ -64,56 +91,98 @@ const ResetPasswordContainer = (props: Props) => {
 
     const validateModel = (model: ResetPasswordModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
-        if (model.newPassword == '') {
-            errors.set('New Password', 'Password is required')
-        }
+        const reNumber = /(?=.*[0-9])/;
+        const reUpper = /(?=.*[A-Z])/;
+        const reLower = /(?=.*[a-z])/;
+        const reCount = /[0-9a-zA-Z]{8,}/;
+
         if (model.confirmNewPassword == '') {
-            errors.set('Confirm New Password', 'Password is required')
+            errors.set('confirmnewpassword', 'Password is required')
         }
+
         if (model.newPassword !== '' && model.confirmNewPassword !== '') {
             if (model.newPassword !== model.confirmNewPassword) {
-                errors.set('New Password', 'Password mismatch')
-                errors.set('Confirm New Password', 'Password mismatch')
+                errors.set('newpassword', 'Password mismatch')
+                errors.set('confirmnewpassword', 'Password mismatch')
             }
+        }
+
+        if (!reNumber.test(model.newPassword)) {
+            errors.set('newpassword', '1 number')
+        }
+
+        if (!reLower.test(model.newPassword)) {
+            errors.set('newpassword', '1 lowercase letter')
+        }
+
+        if (!reUpper.test(model.newPassword)) {
+            errors.set('newpassword', '1 uppercase letter')
+        }
+
+        if (!reCount.test(model.newPassword)) {
+            errors.set('newpassword', 'At least 8 symbols')
         }
 
         return errors;
     }
 
-    const history = useHistory();
     const { formData, isLoading } = state;
     return (
-        <form className={"reset-password-wrapper"} onSubmit={e => handleSubmit(e)}>
-            <h2>Reset Password</h2>
-            <TextField required
-                error={state.errors.has('New Password')}
-                onChange={(e) => setModel({ ...state.formData, newPassword: e.currentTarget.value })}
-                id="New Password"
-                label="New Password"
-                type="password"
-                helperText={state.errors.get('New Password')}
-            />
-            <br />
-            <TextField required
-                error={state.errors.has('Confirm New Password')}
-                onChange={(e) => setModel({ ...state.formData, confirmNewPassword: e.currentTarget.value })}
-                id="Confirm New Password"
-                label="Confirm New Password"
-                type="password"
-                helperText={state.errors.get('Confirm New Password')}
-            />
-            <br />
-            <Grid item xs={12}>
-                <Button
-                    color="primary"
-                    variant="contained"
-                    type="submit"
-                    disabled={isLoading}
-                >
-                    RESET PASSWORD
-                </Button>
-            </Grid>
-        </form>
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <SaveIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Reset Password
+                </Typography>
+                <form className={classes.form} onSubmit={e => handleSubmit(e)}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="newpassword"
+                                label="New password"
+                                type="password"
+                                id="newpassword"
+                                onChange={(e) => setModel({ ...state.formData, newPassword: e.currentTarget.value })}
+                                error={state.errors.has('newpassword')}
+                                helperText={state.errors.get('newpassword')}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="confirmnewpassword"
+                                label="Confirm new password"
+                                type="password"
+                                id="confirmnewpassword"
+                                onChange={(e) => setModel({ ...state.formData, confirmNewPassword: e.currentTarget.value })}
+                                error={state.errors.has('confirmnewpassword')}
+                                helperText={state.errors.get('confirmnewpassword')}
+                            />
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        Submit
+                    </Button>
+                </form>
+            </div>
+            <Box mt={8}>
+                <Copyright />
+            </Box>
+        </Container >
     );
 }
 

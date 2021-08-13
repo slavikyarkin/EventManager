@@ -15,7 +15,7 @@ import { ApplicationState } from './applicationState';
 import { RouterModel } from './Shared/Router/RouterModel';
 import { getToken } from './useToken';
 import LogupContainer from './Shared/Signup/SignupContainer';
-import {SnackbarContainer} from './Shared/Snackbar/SnackbarContainer';
+import { SnackbarContainer } from './Shared/Snackbar/SnackbarContainer';
 import IdentifyContainer from './Shared/Login/Identify/IdentifyContainer';
 import ResetPasswordContainer from './Shared/Login/ResetPassword/ResetPasswordContainer';
 import { DialogContainer } from './Shared/Dialog/DialogContainer';
@@ -46,7 +46,7 @@ const App = (props: Props) => {
         <SnackbarContainer />
         <DialogContainer />
         <Switch>
-        <Route path="/identify">
+          <Route path="/identify">
             <IdentifyContainer />
           </Route>
           <Route path="/signin">
@@ -58,8 +58,11 @@ const App = (props: Props) => {
           <Route path="/Signup">
             <LogupContainer />
           </Route>
+          <Route path="/company/new">
+            <CompanyCreateContainer />
+          </Route>
           <Route path="/">
-          <Home />
+            <Home />
           </Route>
         </Switch>
       </>
@@ -73,7 +76,7 @@ const App = (props: Props) => {
       <SnackbarContainer />
       <DialogContainer />
       <Switch>
-        <Route path="/editcompany/:companyId" component={CompanyEditContainer} /> 
+        <Route path="/editcompany/:companyId" component={CompanyEditContainer} />
         <Route path="/events">
           <div>EVENTS</div>
         </Route>
@@ -88,7 +91,7 @@ const App = (props: Props) => {
           <CompanyCreateContainer />
         </Route>
         <Route path="/company/:companyId" component={CompanyContainer} />
-          {/* <MainBodyContainer />
+        {/* <MainBodyContainer />
         </Route> */}
         <Route path="/invitecompany/:companyId" component={CompanyInviteContainer} />
         <Route path="/">

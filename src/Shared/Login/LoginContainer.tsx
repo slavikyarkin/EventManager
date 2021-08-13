@@ -22,9 +22,11 @@ import {
     Typography,
     Button
 } from '@material-ui/core';
-
+import FacebookIcon from '@material-ui/icons/Facebook';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import LoginGoogle from '../GoogleLogin/GoogleLoginComponent';
+import { useGoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,7 +44,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        margin: theme.spacing(3, 0, 1),
+    },
+    social: {
+        margin: theme.spacing(1, 0, 1),
     },
 }));
 
@@ -81,7 +86,6 @@ const LoginContainer = (props: Props) => {
         }
     });
 
-    const history = useHistory();
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -139,6 +143,19 @@ const LoginContainer = (props: Props) => {
                             </Link>
                         </Grid>
                     </Grid>
+                    {/* <Typography align="center" component="h2" variant="h6">
+                        OR
+                    </Typography> */}
+                    <Button
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.social}
+                        // startIcon={<FacebookIcon />}
+                    >
+                        Continue with Facebook
+                    </Button>
+                    <LoginGoogle />
                 </form>
             </div>
             <Box mt={8}>

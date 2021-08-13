@@ -215,7 +215,6 @@ const SignupContainer = (props: Props) => {
                                 label="Password"
                                 type="password"
                                 id="password"
-                                autoComplete="current-password"
                                 onChange={(e) => setModelPassword({ ...state.formData, password: e.currentTarget.value })}
                                 error={state.errors.has('password')}
                                 helperText={state.errors.get('password')}
@@ -230,7 +229,6 @@ const SignupContainer = (props: Props) => {
                                 label="Repeat password"
                                 type="password"
                                 id="repeatpassword"
-                                autoComplete="current-password"
                                 onChange={(e) => setModelPassword({ ...state.formData, repeatPassword: e.currentTarget.value })}
                                 error={state.errors.has('repeatpassword')}
                                 helperText={state.errors.get('repeatpassword')}

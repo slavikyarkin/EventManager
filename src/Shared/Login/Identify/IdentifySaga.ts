@@ -7,6 +7,7 @@ import { IdentifyData } from './IdentifyData';
 import * as errorActions from "../../ErrorMessages/errorActions";
 import * as snackbarActions from "../../Snackbar/SnackbarActions";
 import { BadRequestError } from '../../exceptions';
+import * as routerActions from "../../Router/routerActions";
 
 
 export function* identifySaga() {
@@ -16,7 +17,7 @@ export function* identifySaga() {
 function* identify(action: ActionType<typeof actions.identify>) {
     try {
         const data: string = yield call(Api.postIdentify, action.payload);
-
+        yield put(routerActions.redirect('/signin'));
         yield put(snackbarActions.showSnackbar({message: data, severity: 'success'}))
     } catch (e) {
         yield put(actions.identifyFail(e));

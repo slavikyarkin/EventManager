@@ -5,7 +5,7 @@ import * as baseApi from "../../baseApi"
 declare const appSettings : AppSettings;
 
 export function* postResetPassword(data: ResetPasswordRequestModel) {
-    const result: string = yield baseApi.post<ResetPasswordRequestModel, string>(appSettings.baseApiUrl + `/user/RestorePassword`, data);
+    const result: string = yield baseApi.post<ResetPasswordRequestModel, string>(appSettings.baseApiUrl + `/authenticate/RestorePassword`, data);
     return result;
 }
 
