@@ -1,34 +1,37 @@
 import React from "react";
-import { Link, makeStyles, Typography } from "@material-ui/core";
+import { Container, CssBaseline, Link, makeStyles, Typography } from "@material-ui/core";
 import logo from '../../logo.svg';
+import home from '../../Home.png'
 
 const useStyles = makeStyles((theme) => ({
-    social: {
-        margin: theme.spacing(10, 0, 20),
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     },
 }));
 
 export default function Home() {
     const classes = useStyles();
     return (
-        <img src={logo} className="App-logo" alt="logo" />
-        // <div className={classes.social}>
-        //     <Typography
-        //         align="center"
-        //         color="primary"
-        //         display="block"
-        //         variant="h1"
-        //     >
-        //         Event Manager 
-        //     </Typography>
-        //     <Typography
-        //         align="center"
-        //         color="textSecondary"
-        //         display="block"
-        //         variant="h3"
-        //     >
-        //         helps to orgonize events of your company
-        //     </Typography>
-        // </div>
+            <div className={classes.paper}>
+                <Typography
+                    align="center"
+                    color="primary"
+                    display="block"
+                    variant="h1"
+                >
+                    Event Manager
+                </Typography>
+                <Typography
+                    align="center"
+                    color="textSecondary"
+                    display="block"
+                    variant="h3"
+                >
+                    helps to orgonize events of your company
+                </Typography>
+            </div>
     );
 }

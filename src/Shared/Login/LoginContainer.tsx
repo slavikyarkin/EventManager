@@ -87,10 +87,6 @@ const LoginContainer = (props: Props) => {
         }
     });
 
-    const onCklickFacebook = async () => {
-    
-    }
-
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />

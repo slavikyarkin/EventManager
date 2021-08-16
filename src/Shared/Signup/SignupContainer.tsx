@@ -98,10 +98,12 @@ const SignupContainer = (props: Props) => {
 
     const validatePassword = (model: SignupModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
+        let error: string= '';
         const reNumber = /(?=.*[0-9])/;
         const reUpper = /(?=.*[A-Z])/;
         const reLower = /(?=.*[a-z])/;
         const reCount = /[0-9a-zA-Z]{8,}/;
+        const reFull = /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}/;
 
         if (model.repeatPassword == '') {
             errors.set('repeatpassword', 'Password is required')
@@ -114,20 +116,28 @@ const SignupContainer = (props: Props) => {
             }
         }
 
-        if (!reNumber.test(model.password)) {
-            errors.set('password', '1 number')
+        if (!reCount.test(model.password)) {
+            // errors.set('password', 'At least 8 symbols')
+            error +='At least 8 symbols;\n\r ';
         }
 
         if (!reLower.test(model.password)) {
-            errors.set('password', '1 lowercase letter')
+            // errors.set('password', '1 lowercase letter')
+            error +='lowercase letters (a-z);\n\r ';
         }
 
         if (!reUpper.test(model.password)) {
-            errors.set('password', '1 uppercase letter')
+            // errors.set('password', '1 uppercase letter')
+            error +='uppercase letters (A-Z);\n\r ';
         }
 
-        if (!reCount.test(model.password)) {
-            errors.set('password', 'At least 8 symbols')
+        if (!reNumber.test(model.password)) {
+            // errors.set('password', '1 number')
+            error +=`numbers (i.e. 0-9);\n\r `;
+        }
+
+        if (!reFull.test(model.password)) {
+            errors.set('password', error)       
         }
 
         return errors;

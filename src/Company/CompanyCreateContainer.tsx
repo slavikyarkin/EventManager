@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio, RadioGroup, TextField } from '@material-ui/core';
+import { Avatar, Box, Container, CssBaseline, FormControlLabel, FormLabel, Grid, makeStyles, Radio, RadioGroup, TextField, Typography } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
@@ -7,7 +7,29 @@ import { ApplicationState } from '../applicationState';
 import * as actions from "./CompanyActions";
 import { CompanyModel } from './CompanyModel';
 import { getEmail } from '../useToken';
+import Copyright from '../Shared/Copyright/CopyrightComponent';
+import AddIcon from '@material-ui/icons/Add';
 
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%',
+        marginTop: theme.spacing(3),
+    },
+    submit: {
+        margin: theme.spacing(1, 0, 2),
+    },
+}));
 
 interface OwnProps {
 
@@ -23,51 +45,87 @@ interface DispatchProps {
 
 interface Props extends OwnProps, StateProps, DispatchProps {
 }
+const CompanyCreate = (props: Props) => {
+    const classes = useStyles();
+    const [companyState, setCompany] = useState({ name: '', email: getEmail(), description: '', type: 1 });
 
-const CompanyCreate: React.FunctionComponent<Props> = (props: Props) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        props.submit(companyState);
+    }
 
-    const [companyState, setCompany] = useState({ name: '', email: getEmail(), description: '', type: 0 });
     return (
-        <div>
-            <TextField
-                id="outlined-basic"
-                label="Name company"
-                variant="outlined"
-                onChange={e => setCompany({ ...companyState, name: e.target.value })}
-            />
-            <br />
-            <TextField
-                id="outlined-basic"
-                label="Name description"
-                fullWidth
-                variant="outlined"
-                onChange={e => setCompany({ ...companyState, description: e.target.value })}
-            />
-            <br />
-            <RadioGroup aria-label="Company status" name="Company status" onChange={e => setCompany({ ...companyState, type: +(e.target.value) })}>
-                <FormControlLabel value="1" control={<Radio />} label="Public" />
-                <FormControlLabel value="2" control={<Radio />} label="Private" />
-            </RadioGroup>
-            <Button variant="contained" color="primary" onClick={() => props.submit(companyState)}>
-                Save
-            </Button>
-        </div >
+        <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                    <AddIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Create a new company
+                </Typography>
+                <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} >
+                            <TextField
+                                name="nameyourcompany"
+                                required
+                                fullWidth
+                                id="nameyourcompany"
+                                label="Name your company"
+                                autoFocus
+                                variant="outlined"
+                                onChange={e => setCompany({ ...companyState, name: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={12} >
+                            <TextField
+                                name="descriptionofyourcompany"
+                                required
+                                fullWidth
+                                id="descriptionofyourcompany"
+                                label="Write a description of your company"
+                                variant="outlined"
+                                onChange={e => setCompany({ ...companyState, description: e.target.value })}
+                            />
+                        </Grid>
+                        <Grid item xs={12} >
+                            <FormLabel component="legend">Choose the type of your company</FormLabel>
+                            <RadioGroup
+                                defaultValue="1"
+                                row
+                                aria-label="Company status"
+                                name="Choose the type of your company"
+                                onChange={e => setCompany({ ...companyState, type: +(e.target.value) })}>
+                                <FormControlLabel value="1" control={<Radio />} label="Public" />
+                                <FormControlLabel value="2" control={<Radio />} label="Private" />
+                            </RadioGroup>
+                        </Grid>
+                    </Grid>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                    >
+                        Save
+                    </Button>
+                </form>
+            </div>
+            <Box mt={8}>
+                <Copyright />
+            </Box>
+        </Container >
     );
 }
 
-const mapStateToProps = (state: ApplicationState) => {
-    return {
-        routerModel: state.routerState.router,
-    }
-};
+const mapStateToProps = (state: ApplicationState) => ({
+});
 
-
-const mapDispatchToProps = (dispatch: Dispatch) => {
-    return bindActionCreators({
-        submit: actions.createCompany
-    }, dispatch);
-};
-
+const mapDispatchToProps = {
+    submit: actions.createCompany
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CompanyCreate);
 

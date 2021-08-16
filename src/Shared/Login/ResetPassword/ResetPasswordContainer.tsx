@@ -91,10 +91,12 @@ const ResetPasswordContainer = (props: Props) => {
 
     const validateModel = (model: ResetPasswordModel): Map<string, string> => {
         let errors: Map<string, string> = new Map;
+        let error: string= '';
         const reNumber = /(?=.*[0-9])/;
         const reUpper = /(?=.*[A-Z])/;
         const reLower = /(?=.*[a-z])/;
         const reCount = /[0-9a-zA-Z]{8,}/;
+        const reFull = /(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])[0-9a-zA-Z]{8,}/;
 
         if (model.confirmNewPassword == '') {
             errors.set('confirmnewpassword', 'Password is required')
@@ -107,20 +109,28 @@ const ResetPasswordContainer = (props: Props) => {
             }
         }
 
-        if (!reNumber.test(model.newPassword)) {
-            errors.set('newpassword', '1 number')
+        if (!reCount.test(model.newPassword)) {
+            // errors.set('newpassword', 'At least 8 symbols')
+            error +='At least 8 symbols;\n\r ';
         }
 
         if (!reLower.test(model.newPassword)) {
-            errors.set('newpassword', '1 lowercase letter')
+            // errors.set('newpassword', '1 lowercase letter')
+            error +='lowercase letters (a-z);\n\r ';
         }
 
         if (!reUpper.test(model.newPassword)) {
-            errors.set('newpassword', '1 uppercase letter')
+            // errors.set('newpassword', '1 uppercase letter')
+            error +='uppercase letters (A-Z);\n\r ';
         }
 
-        if (!reCount.test(model.newPassword)) {
-            errors.set('newpassword', 'At least 8 symbols')
+        if (!reNumber.test(model.newPassword)) {
+            // errors.set('newpassword', '1 number')
+            error +=`numbers (i.e. 0-9);\n\r `;
+        }
+
+        if (!reFull.test(model.newPassword)) {
+            errors.set('newpassword', error)       
         }
 
         return errors;

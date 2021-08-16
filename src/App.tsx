@@ -58,9 +58,6 @@ const App = (props: Props) => {
           <Route path="/Signup">
             <LogupContainer />
           </Route>
-          <Route path="/company/new">
-            <CompanyCreateContainer />
-          </Route>
           <Route path="/">
             <Home />
           </Route>
@@ -87,9 +84,9 @@ const App = (props: Props) => {
         <Route path="/event/:eventId" component={EventContainer}>
           <div>SHOW EVENT</div>
         </Route>
-        <Route path="/company/new">
-          <CompanyCreateContainer />
-        </Route>
+        <Route path="/company/new" component={CompanyCreateContainer} />
+          {/* <CompanyCreateContainer />
+        </Route> */}
         <Route path="/company/:companyId" component={CompanyContainer} />
         {/* <MainBodyContainer />
         </Route> */}

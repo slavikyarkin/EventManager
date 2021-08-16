@@ -5,6 +5,6 @@ import * as baseApi from "../baseApi";
 declare const appSettings: AppSettings;
 
 export function* postSignup(data: SignupRequestData) {
-    const result: UserData = yield baseApi.post<SignupRequestData, UserData>(appSettings.baseApiUrl + `/authenticate`, data);
+    const result: UserData = yield baseApi.post<SignupRequestData, UserData>(appSettings.baseApiUrl + `/user`, data);
     return result;
 }
