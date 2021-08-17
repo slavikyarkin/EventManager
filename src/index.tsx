@@ -10,7 +10,7 @@ import createSagaMiddleware from 'redux-saga';
 import { composeWithDevTools } from "redux-devtools-extension";
 import { rootReducer } from './rootReducer';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Router, useHistory } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { rootSaga } from './rootSaga';
 import { ConfirmProvider } from 'material-ui-confirm';
 

@@ -20,12 +20,17 @@ export function* editCompany(data: CompanyData) {
 }
 
 export function* deleteCompany(id: number) {
-    const result: string = yield baseApi.put<undefined, string>(appSettings.baseApiUrl + `/company/MakeCompanyDel/${id}`, undefined);
+    const result: CompanyData = yield baseApi.put<undefined, CompanyData>(appSettings.baseApiUrl + `/company/MakeCompanyDel/${id}`, undefined);
     return result;
 }
 
 export function* getAllCompanies() {
     const result: CompanyData[] = yield baseApi.get(appSettings.baseApiUrl + `/company/all`);
+    return result;
+}
+
+export function* getAllCompaniesByUser(param: string) {
+    const result: CompanyData[] = yield baseApi.get(appSettings.baseApiUrl + `/company/GetAllCompaniesByUser?` + param);
     return result;
 }
 

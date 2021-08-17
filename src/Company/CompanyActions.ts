@@ -27,3 +27,6 @@ export const inviteCompanyFail = createAction('company/INVITE_COMPANY_FAIL')<Err
 export const inviteAcceptCompany = createAction('company/INVITE_ACCEPT_COMPANY')<CompanyInviteModel>();
 export const inviteAcceptCompanySuccess = createAction('company/INVITE_ACCEPT_COMPANY_SUCCESS')<CompanyInviteModel>();
 export const inviteAcceptCompanyFail = createAction('company/INVITE_ACCEPT_COMPANY_FAIL')<Error>();
+
+export const loadAllByUser = createAction('company/LOAD_ALL_BY_USER')<string>();
+export const loadAllByUserSuccess = createAction('company/LOAD_ALL_BY_USER_SUCCESS')<CompanyModel[]>();

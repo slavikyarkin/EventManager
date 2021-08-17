@@ -20,6 +20,7 @@ export function* companySaga() {
     yield takeLatest(getType(actions.editCompany), editCompany);
     yield takeLatest(getType(actions.inviteCompany), inviteCompany);
     yield takeLatest(getType(actions.inviteAcceptCompany), inviteAcceptCompany);
+    yield takeLatest(getType(actions.loadAllByUser), loadAllByUser);
 }
 
 function* loadCompany(action: ActionType<typeof actions.loadCompany>) {
@@ -58,9 +59,9 @@ function* loadAll(action: ActionType<typeof actions.loadAll>) {
 
 function* deleteCompany(action: ActionType<typeof actions.deleteCompany>) {
     try {
-        const res: string = yield call(Api.deleteCompany, action.payload)
+        const data: CompanyData = yield call(Api.deleteCompany, action.payload)
         yield put(routerActions.redirect('/'));
-        yield put(snackbarActions.showSnackbar({ message: res, severity: 'success' }))
+        // yield put(snackbarActions.showSnackbar({ message: res, severity: 'success' }))
     } catch (e) {
         yield put(actions.deleteCompanyFail(e));
         if (e instanceof BadRequestError) {
@@ -111,3 +112,13 @@ function* inviteAcceptCompany(action: ActionType<typeof actions.inviteAcceptComp
     }
 }
 
+function* loadAllByUser(action: ActionType<typeof actions.loadAllByUser>) {
+    try {
+        const data: CompanyData[] = yield call(Api.getAllCompaniesByUser, action.payload);
+        const model = data.map(x => { return { ...x } });
+        //const model: CompanyModel[] = [{id: 1, name: 'C1'}, {id: 2, name: 'C2'}] // data.map(mapper.mapToModel);
+        yield put(actions.loadAllSuccess(model));
+    } catch (e) {
+        yield put(actions.loadCompanyFail(e));
+    }
+}

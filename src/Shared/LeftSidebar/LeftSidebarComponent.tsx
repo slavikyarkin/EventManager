@@ -18,20 +18,22 @@ import * as companyActions from "../../Company/CompanyActions";
 import { bindActionCreators, Dispatch } from "redux";
 import { connect } from "react-redux";
 import { CompanyModel } from "../../Company/CompanyModel";
+import { getEmail } from "../../useToken";
 
 interface Props extends RouteComponentProps {
   routerModel?: RouterModel;
   companies?: CompanyModel[];
   redirect: (route: string) => void;
-  loadCompanies: () => void;
+  loadCompanies: (param: string) => void;
 }
 
 const LeftSidebarContainer = (props: Props) => {
 
-
   React.useEffect(() => {
-    props.loadCompanies();
-  }, []);
+    let param = new URLSearchParams();
+    param.append("email", getEmail() ?? "");
+    props.loadCompanies(param.toString());
+  }, [props.routerModel?.redirectTo]);
 
   return (
     <div className={"root"}>
@@ -75,7 +77,7 @@ const mapStateToProps = (state: ApplicationState) => {
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return bindActionCreators({
     redirect: routerActions.redirect,
-    loadCompanies: companyActions.loadAll
+    loadCompanies: companyActions.loadAllByUser
   }, dispatch);
 };
 
