@@ -44,7 +44,7 @@ const App = (props: Props) => {
       <>
         <TopNavigationComponent />
         <SnackbarContainer />
-        <DialogContainer />
+        {/* <DialogContainer /> */}
         <Switch>
           <Route path="/identify">
             <IdentifyContainer />
@@ -71,27 +71,23 @@ const App = (props: Props) => {
       <TopNavigationComponent />
       <LeftSidebarComponent />
       <SnackbarContainer />
-      <DialogContainer />
+      {/* <DialogContainer /> */}
       <Switch>
-        <Route path="/editcompany/:companyId" component={CompanyEditContainer} />
-        <Route path="/events">
-          <div>EVENTS</div>
-        </Route>
-        {/* <Route path="company/:companyId/event/new" component={EventCreateContainer} /> */}
-        <Route path="/event/new">
+        <Route exact path="/company/new" component={CompanyCreateContainer} />
+        <Route exact path="/company/:companyId/edit" component={CompanyEditContainer} />
+        <Route exact path="/company/:companyId/invite" component={CompanyInviteContainer} />
+        <Route exact path="/company/:companyId/users" component={CompanyEditContainer} />
+        <Route path="/company/:companyId" component={CompanyContainer} />
+        {/* <Route path="/event/new">
           <EventCreateContainer />
-        </Route>
+        </Route> */}
         <Route path="/event/:eventId" component={EventContainer}>
           <div>SHOW EVENT</div>
         </Route>
-        <Route path="/company/new" component={CompanyCreateContainer} />
-        <Route path="/company/:companyId" component={CompanyContainer} />
-        <Route path="/invitecompany/:companyId" component={CompanyInviteContainer} />
         <Route path="/">
           <div>HOME</div>
         </Route>
       </Switch>
-
     </div>
   );
 }

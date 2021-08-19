@@ -9,9 +9,10 @@ import * as companyActions from "./CompanyActions";
 import { ComponentState } from "./ComponentState";
 import { useHistory, useParams } from "react-router-dom";
 import { ApplicationState } from "../applicationState";
-import { Button, ButtonGroup, Card, CardActions, CardContent, Container, CssBaseline, Grid, List, ListItem, ListItemText, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Button, ButtonGroup, Card, CardActions, CardContent, Container, CssBaseline, Grid, IconButton, List, ListItem, ListItemText, makeStyles, TextField, Typography } from "@material-ui/core";
 import { useConfirm } from "material-ui-confirm";
 import { exit } from "process";
+import PeopleIcon from '@material-ui/icons/People';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  margin: {
+    margin: theme.spacing(1),
   },
 }));
 
@@ -46,7 +50,7 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
   const history = useHistory();
   const confirm = useConfirm();
   const classes = useStyles();
-  let type = props.company?.type ? "Everyone will see your events" : "Only members of this company will see events";
+  let type = (props.company?.type == 1) ? "Everyone will see your events" : "Only members of this company will see events";
 
   useEffect(() => {
     if (companyId) {
@@ -71,22 +75,29 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
       <Container component="main" maxWidth="lg">
         <CssBaseline />
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={12}>
+          <Grid item xs={12} sm={6}>
             <Typography align="left" component="h1" variant="h4">
               {props.company?.name ?? "Company"}
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Typography align="right" component="h1" variant="h4">
+              <IconButton aria-label="company users" className={classes.margin} onClick={() => history.push(`${companyId}/users`)}>
+                <PeopleIcon fontSize="large" color="primary" />
+              </IconButton>
             </Typography>
           </Grid>
         </Grid>
         <Typography align="left" component="h2" variant="h6">
           {props.company?.description ?? "Company description"}
         </Typography>
-        <Typography align="right"color="textSecondary" component="h1" variant="h6">
-              {type}
-            </Typography>
+        <Typography align="right" color="textSecondary" component="h1" variant="h6">
+          {type}
+        </Typography>
         <div className={classes.paper}>
           <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group" fullWidth>
-            <Button onClick={() => history.push('/invitecompany/' + props.company?.id)}>Invite New User</Button>
-            <Button onClick={() => history.push('/editcompany/' + props.company?.id)}>Edit company</Button>
+            <Button onClick={() => history.push(`${companyId}/invite`)}>Invite New User</Button>
+            <Button onClick={() => history.push(`${companyId}/edit`)}>Edit company</Button>
             <Button onClick={handleClick}>Delete company</Button>
           </ButtonGroup>
           <List>
