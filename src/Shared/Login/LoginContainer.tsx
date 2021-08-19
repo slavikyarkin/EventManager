@@ -151,9 +151,6 @@ const LoginContainer = (props: Props) => {
                     <LoginFacebook />
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
         </Container >
     );
 }

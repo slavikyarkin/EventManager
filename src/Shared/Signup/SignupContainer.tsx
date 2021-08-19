@@ -261,9 +261,6 @@ const SignupContainer = (props: Props) => {
                             </Link>
                         </Grid>
                     </Grid>
-                    <Box mt={5}>
-                        <Copyright />
-                    </Box>
                 </form>
             </div>
         </Container >

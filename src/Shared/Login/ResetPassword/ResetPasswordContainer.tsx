@@ -189,9 +189,6 @@ const ResetPasswordContainer = (props: Props) => {
                     </Button>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
         </Container >
     );
 }

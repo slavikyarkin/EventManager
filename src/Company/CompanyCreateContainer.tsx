@@ -84,7 +84,7 @@ const CompanyCreate = (props: Props) => {
                                 required
                                 fullWidth
                                 id="descriptionofyourcompany"
-                                label="Write a description of your company"
+                                label="Add a description of your company"
                                 variant="outlined"
                                 onChange={e => setCompany({ ...companyState, description: e.target.value })}
                             />
@@ -113,9 +113,6 @@ const CompanyCreate = (props: Props) => {
                     </Button>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
         </Container >
     );
 }

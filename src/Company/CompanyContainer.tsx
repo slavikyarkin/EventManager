@@ -66,7 +66,7 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
   }, []);
 
   const handleClick = () => {
-    confirm({ description: 'Really delete the company?' })
+    confirm({ title: '', description: 'Are you sure to delete the company?' })
       .then(() => props.deleteCompany(props.company?.id!));
   }
 
@@ -108,7 +108,7 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
 
           </List>
           <Grid container spacing={4}>
-            {events.map((event) => (
+            {/* {events.map((event) => (
               <Grid item key={event} xs={12}>
                 <Card>
                   <CardContent>
@@ -121,7 +121,7 @@ const CompanyContainer: React.FC<Props> = (props: Props) => {
                   </CardActions>
                 </Card>
               </Grid>
-            ))}
+            ))} */}
           </Grid>
         </div>
       </Container>

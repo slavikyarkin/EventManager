@@ -51,7 +51,22 @@ export function TopNavigationComponent() {
         </IconButton>
         <Typography variant="h6" color="inherit" className={classes.grow}>
         </Typography>
-        {!token ? (<Button color="inherit" onClick={() => history.push('/signin')}> Sign In </Button>) : (<Button color="inherit" onClick={() => { localStorage.clear(); history.push('/signin') }}> Sign out </Button>)}
+        {!token ?
+          (<>
+            <Button
+              color="inherit"
+              onClick={() => history.push('/signin')}
+            >
+              Sign In
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => history.push('/signup')}
+            >
+              Sign up
+            </Button>
+          </>
+          ) : (<Button color="inherit" onClick={() => { localStorage.clear(); history.push('/signin') }}> Sign out </Button>)}
       </Toolbar>
     </AppBar>
   )

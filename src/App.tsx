@@ -23,7 +23,26 @@ import CompanyEditContainer from './Company/CompanyEditContainer';
 import CompanyInviteContainer from './Company/CompanyInviteContainer';
 import EventCreateContainer from './Event/EventCreateContainer';
 import Home from './Shared/Home/HomeComponent';
+import Copyright from './Shared/Copyright/CopyrightComponent';
+import { Container, makeStyles, Typography } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+  main: {
+    marginTop: theme.spacing(8),
+    marginBottom: theme.spacing(2),
+  },
+  footer: {
+    padding: theme.spacing(3, 2),
+    marginTop: 'auto',
+    backgroundColor:
+      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+  },
+}));
 
 interface Props extends RouteComponentProps {
   routerModel?: RouterModel;
@@ -32,6 +51,7 @@ interface Props extends RouteComponentProps {
 
 const App = (props: Props) => {
   const token = getToken();
+  const classes = useStyles();
 
   React.useEffect(() => {
     if (props.routerModel && props.routerModel.redirectTo && props.location.pathname !== props.routerModel.redirectTo) {
@@ -41,9 +61,10 @@ const App = (props: Props) => {
 
   if (!token) {
     return (
-      <>
+      <div className={classes.root}>
         <TopNavigationComponent />
         <SnackbarContainer />
+
         {/* <DialogContainer /> */}
         <Switch>
           <Route path="/identify">
@@ -62,12 +83,17 @@ const App = (props: Props) => {
             <Home />
           </Route>
         </Switch>
-      </>
+        <footer className={classes.footer}>
+          <Container maxWidth="sm">
+            <Copyright />
+          </Container>
+        </footer>
+      </div>
     )
   }
 
   return (
-    <div className={"main-container"}>
+    <div className={classes.root}>
       <TopNavigationComponent />
       <LeftSidebarComponent />
       <SnackbarContainer />
@@ -85,9 +111,13 @@ const App = (props: Props) => {
           <div>SHOW EVENT</div>
         </Route>
         <Route path="/">
-          <div>HOME</div>
         </Route>
       </Switch>
+      <footer className={classes.footer}>
+        <Container maxWidth="sm">
+          <Copyright />
+        </Container>
+      </footer>
     </div>
   );
 }

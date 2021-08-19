@@ -20,7 +20,11 @@ export function snackbarReducer(state: SnackbarState = initialState, action: Sna
         severity: action.payload.severity
       };
     case (getType(snackbarActions.hideSnackbar)):
-      return initialState;
+      // return initialState;
+      return {
+        ...state,
+        open: false,
+      }
     default:
       return {
         ...state
