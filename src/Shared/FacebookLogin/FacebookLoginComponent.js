@@ -20,7 +20,7 @@ function LoginFacebook() {
   const dispatch = useDispatch()
 
   const fbResponse = (response) => {
-    // console.log(response);
+    console.log(response);
     dispatch(actions.logInFacebook(response.accessToken));
   }
   return (
